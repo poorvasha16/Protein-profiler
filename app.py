@@ -139,15 +139,18 @@ with t3:
 # ---------------- Regions & motifs ----------------
 with t4:
     st.subheader("Detected regions")
-    st.dataframe(regions, hide_index=True, use_container_width=True) if not regions.empty \
-        else st.write("No regions detected with the current thresholds.")
-    st.subheader("Detected motifs")
-    st.dataframe(motifs, hide_index=True, use_container_width=True) if not motifs.empty \
-        else st.write("No motifs found.")
-    d1, d2 = st.columns(2)
-    d1.download_button("Download regions CSV", regions.to_csv(index=False), f"{choice}_regions.csv")
-    d2.download_button("Download motifs CSV", motifs.to_csv(index=False), f"{choice}_motifs.csv")
 
+    if not regions.empty:
+        st.dataframe(regions, hide_index=True, use_container_width=True)
+    else:
+        st.write("No regions detected with the current thresholds.")
+
+    st.subheader("Detected motifs")
+
+    if not motifs.empty:
+        st.dataframe(motifs, hide_index=True, use_container_width=True)
+    else:
+        st.write("No motifs found.")
 # ---------------- Graphs ----------------
 with t5:
     st.plotly_chart(px.bar(comp, x="aa", y="percent", title="Amino-acid composition (%)",
