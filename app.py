@@ -21,110 +21,140 @@ st.set_page_config(
 
 
 # ============================================================
-# CUSTOM DESIGN / COLOURS
+# CUSTOM CSS
 # ============================================================
 
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
 
-    /* ---------- MAIN BACKGROUND ---------- */
+    /* ========================================================
+       GENERAL PAGE
+       ======================================================== */
 
     .stApp {
         background:
-            radial-gradient(circle at 10% 10%, #eef2ff 0%, transparent 28%),
-            radial-gradient(circle at 90% 10%, #ecfeff 0%, transparent 28%),
-            linear-gradient(135deg, #f8faff 0%, #effcff 50%, #f5f3ff 100%);
+            radial-gradient(
+                circle at 5% 5%,
+                rgba(219, 234, 254, 0.8),
+                transparent 25%
+            ),
+            radial-gradient(
+                circle at 95% 10%,
+                rgba(204, 251, 241, 0.8),
+                transparent 25%
+            ),
+            linear-gradient(
+                135deg,
+                #f8fbff 0%,
+                #f0f9ff 50%,
+                #f8f7ff 100%
+            );
     }
-
-
-    /* ---------- MAIN CONTENT ---------- */
 
     .block-container {
+        max-width: 1400px;
         padding-top: 2rem;
         padding-bottom: 3rem;
-        max-width: 1400px;
     }
 
 
-    /* ---------- TITLE ---------- */
+    /* ========================================================
+       MAIN TITLE
+       ======================================================== */
 
     .main-title {
-        font-size: 3rem;
+        font-size: 3.2rem;
         font-weight: 850;
         color: #172554;
-        margin-bottom: 0.2rem;
-        letter-spacing: -1px;
+        letter-spacing: -1.5px;
+        margin-bottom: 4px;
     }
 
     .subtitle {
         font-size: 1.05rem;
         color: #64748b;
-        margin-bottom: 1.5rem;
+        margin-bottom: 22px;
     }
 
 
-    /* ---------- PROTEIN HEADER ---------- */
+    /* ========================================================
+       HEADER BANNER
+       ======================================================== */
 
     .protein-banner {
         background: linear-gradient(
             135deg,
             #dbeafe 0%,
-            #e0f2fe 45%,
+            #e0f2fe 48%,
             #ccfbf1 100%
         );
 
         border: 1px solid #bae6fd;
         border-radius: 22px;
-        padding: 22px 28px;
-        margin-bottom: 22px;
 
-        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.08);
+        padding: 24px 28px;
+        margin: 12px 0 24px 0;
+
+        box-shadow:
+            0 8px 25px rgba(37, 99, 235, 0.08);
     }
 
     .protein-banner-title {
         font-size: 1.35rem;
-        font-weight: 750;
+        font-weight: 800;
         color: #075985;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
 
     .protein-banner-text {
+        font-size: 0.98rem;
+        line-height: 1.6;
         color: #475569;
-        font-size: 0.95rem;
     }
 
 
-    /* ---------- INPUT CARD ---------- */
+    /* ========================================================
+       INPUT CARD
+       ======================================================== */
 
     .input-card {
-        background: rgba(255,255,255,0.92);
+        background: rgba(255, 255, 255, 0.96);
+
         border: 1px solid #c7d2fe;
         border-radius: 20px;
-        padding: 22px;
-        margin-top: 10px;
+
+        padding: 22px 24px;
         margin-bottom: 25px;
 
-        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+        box-shadow:
+            0 8px 25px rgba(15, 23, 42, 0.06);
     }
 
     .input-title {
-        font-size: 1.25rem;
-        font-weight: 750;
+        font-size: 1.3rem;
+        font-weight: 800;
         color: #3730a3;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
+    }
+
+    .input-description {
+        color: #64748b;
+        margin-bottom: 16px;
     }
 
 
-    /* ---------- SIDEBAR ---------- */
+    /* ========================================================
+       SIDEBAR
+       ======================================================== */
 
     section[data-testid="stSidebar"] {
-        background:
-            linear-gradient(
-                180deg,
-                #e0f2fe 0%,
-                #dbeafe 45%,
-                #ccfbf1 100%
-            );
+        background: linear-gradient(
+            180deg,
+            #e0f2fe 0%,
+            #dbeafe 45%,
+            #ccfbf1 100%
+        );
     }
 
     section[data-testid="stSidebar"] h1,
@@ -134,22 +164,25 @@ st.markdown("""
     }
 
 
-    /* ---------- METRIC CARDS ---------- */
+    /* ========================================================
+       METRIC CARDS
+       ======================================================== */
 
     div[data-testid="stMetric"] {
-        background: rgba(255,255,255,0.95);
-        border-radius: 17px;
-        padding: 18px;
+        background: rgba(255, 255, 255, 0.96);
 
         border: 1px solid #bfdbfe;
+        border-radius: 17px;
+
+        padding: 18px;
 
         box-shadow:
-            0 6px 18px rgba(15, 23, 42, 0.07);
+            0 6px 18px rgba(15, 23, 42, 0.06);
     }
 
     div[data-testid="stMetricLabel"] {
         color: #64748b;
-        font-weight: 600;
+        font-weight: 650;
     }
 
     div[data-testid="stMetricValue"] {
@@ -158,11 +191,13 @@ st.markdown("""
     }
 
 
-    /* ---------- TABS ---------- */
+    /* ========================================================
+       TABS
+       ======================================================== */
 
     button[data-baseweb="tab"] {
-        font-weight: 700;
         font-size: 0.95rem;
+        font-weight: 700;
     }
 
     button[data-baseweb="tab"][aria-selected="true"] {
@@ -171,27 +206,73 @@ st.markdown("""
     }
 
 
-    /* ---------- BUTTONS ---------- */
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
 
     .stButton > button {
         border-radius: 12px;
+
         font-weight: 700;
+
         border: 1px solid #93c5fd;
+
         background: linear-gradient(
             135deg,
             #eff6ff,
             #ecfeff
         );
+
         color: #1d4ed8;
+
+        transition: all 0.2s ease;
     }
 
     .stButton > button:hover {
         border-color: #2563eb;
         color: #1e40af;
+
+        box-shadow:
+            0 5px 15px rgba(37, 99, 235, 0.12);
     }
 
 
-    /* ---------- DATAFRAMES ---------- */
+    /* ========================================================
+       FILE UPLOADER
+       ======================================================== */
+
+    div[data-testid="stFileUploader"] {
+        background: #f8fafc;
+
+        border: 1px solid #dbeafe;
+        border-radius: 14px;
+
+        padding: 8px;
+    }
+
+
+    /* ========================================================
+       TEXT AREA
+       ======================================================== */
+
+    textarea {
+        border-radius: 12px !important;
+    }
+
+
+    /* ========================================================
+       SELECT BOX
+       ======================================================== */
+
+    div[data-baseweb="select"] > div {
+        border-radius: 12px;
+        border-color: #bfdbfe;
+    }
+
+
+    /* ========================================================
+       DATAFRAME
+       ======================================================== */
 
     div[data-testid="stDataFrame"] {
         border-radius: 14px;
@@ -200,66 +281,46 @@ st.markdown("""
     }
 
 
-    /* ---------- ALERTS ---------- */
-
-    div[data-testid="stAlert"] {
-        border-radius: 14px;
-    }
-
-
-    /* ---------- SELECT BOX ---------- */
-
-    div[data-baseweb="select"] > div {
-        border-radius: 12px;
-        border-color: #bfdbfe;
-    }
-
-
-    /* ---------- TEXT AREA ---------- */
-
-    textarea {
-        border-radius: 12px !important;
-    }
-
-
-    /* ---------- FILE UPLOADER ---------- */
-
-    div[data-testid="stFileUploader"] {
-        background: #f8fafc;
-        border-radius: 14px;
-        padding: 8px;
-        border: 1px solid #dbeafe;
-    }
-
-
-    /* ---------- SECTION HEADERS ---------- */
+    /* ========================================================
+       SECTION HEADINGS
+       ======================================================== */
 
     .section-heading {
         font-size: 1.35rem;
         font-weight: 800;
+
         color: #1e3a8a;
-        margin-top: 10px;
-        margin-bottom: 12px;
+
+        margin-top: 8px;
+        margin-bottom: 14px;
     }
 
 
-    /* ---------- FOOTER ---------- */
+    /* ========================================================
+       FOOTER
+       ======================================================== */
 
     .footer {
         text-align: center;
+
         color: #64748b;
+
         font-size: 0.85rem;
-        margin-top: 35px;
-        padding-top: 18px;
+
+        margin-top: 40px;
+        padding-top: 20px;
+
         border-top: 1px solid #dbeafe;
     }
 
-</style>
-""", unsafe_allow_html=True)
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
-# MAIN HEADER
+# PAGE TITLE
 # ============================================================
 
 st.markdown(
@@ -268,33 +329,38 @@ st.markdown(
 )
 
 st.markdown(
-    '<div class="subtitle">'
-    'Interactive protein sequence profiling, physicochemical analysis, '
-    'hydropathy mapping and motif detection.'
-    '</div>',
+    """
+    <div class="subtitle">
+        Interactive protein sequence profiling, physicochemical analysis,
+        hydropathy mapping and motif detection.
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
 
 # ============================================================
-# PROTEIN BANNER
+# PROTEIN INFORMATION BANNER
 # ============================================================
 
-st.markdown("""
-<div class="protein-banner">
+st.markdown(
+    """
+    <div class="protein-banner">
 
-    <div class="protein-banner-title">
-        🔬 Protein Sequence Analysis
+        <div class="protein-banner-title">
+            🔬 Protein Sequence Analysis
+        </div>
+
+        <div class="protein-banner-text">
+            Explore amino-acid composition, molecular properties,
+            hydrophobic regions, low-complexity regions and sequence
+            motifs from your protein FASTA sequence.
+        </div>
+
     </div>
-
-    <div class="protein-banner-text">
-        Explore amino-acid composition, molecular properties,
-        hydrophobic regions, low-complexity regions and sequence motifs
-        from your protein FASTA sequence.
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -305,7 +371,8 @@ SAMPLE = """>sp|P69905|HBA_HUMAN Hemoglobin subunit alpha
 MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG
 KKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTP
 AVHASLDKFLASVSTVLTSKYR
->sp|P04637|P53_HUMAN (fragment) Cellular tumor antigen p53
+
+>sp|P04637|P53_HUMAN Cellular tumor antigen p53
 MEEPQSDPSVEPPLSQETFSDLWKLLPENNVLSPLPSQAMDDLMLSPDDIEQWFTEDPGP
 DEAPRMPEAAPPVAPAPAAPTPAAPAPAPSWPLSSSVPSQKTYQGSYGFRLGFLHSGTAK
 SVTCTYSPALNKMFCQLAKTCPVQLWVDSTPPPGTRVRAMAIYKQSQHMTEVVRRCPHHE
@@ -321,58 +388,90 @@ GSRAHSSHLKSKKGQSTSRHKKLMFKTEGPDSD
 # ============================================================
 
 st.markdown(
-    '<div class="input-card">',
+    """
+    <div class="input-card">
+
+        <div class="input-title">
+            📥 Protein Sequence Input
+        </div>
+
+        <div class="input-description">
+            Upload a FASTA file or paste your protein sequence below.
+        </div>
+
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
-st.markdown(
-    '<div class="input-title">📥 Protein Sequence Input</div>',
-    unsafe_allow_html=True
-)
+input_col1, input_col2 = st.columns(2)
 
-st.write(
-    "Upload a FASTA file or paste your protein sequence below."
-)
 
-col1, col2 = st.columns(2)
+# ------------------------------------------------------------
+# FILE UPLOAD
+# ------------------------------------------------------------
 
-with col1:
+with input_col1:
 
-    up = st.file_uploader(
-        "Upload FASTA",
-        type=["fasta", "fa", "faa", "txt"]
+    uploaded_file = st.file_uploader(
+        "📁 Upload FASTA",
+        type=["fasta", "fa", "faa", "txt"],
+        help="Upload a protein FASTA file."
     )
 
-with col2:
 
-    pasted = st.text_area(
-        "Paste FASTA sequence",
-        height=110,
+# ------------------------------------------------------------
+# PASTE SEQUENCE
+# ------------------------------------------------------------
+
+with input_col2:
+
+    pasted_sequence = st.text_area(
+        "📝 Paste FASTA sequence",
+        height=120,
         placeholder=(
             ">Protein_ID Protein_name\n"
             "MKTIIALSYIFCLVFADYKDDDD..."
         )
     )
 
-sample_col1, sample_col2, sample_col3 = st.columns([1, 1, 3])
 
-with sample_col1:
+# ------------------------------------------------------------
+# SAMPLE BUTTON
+# ------------------------------------------------------------
 
-    if st.button(
-        "🧪 Load sample proteins",
+button_col1, button_col2, button_col3 = st.columns(
+    [1.2, 1.2, 3]
+)
+
+with button_col1:
+
+    sample_button = st.button(
+        "🧪 Load Sample",
         use_container_width=True
-    ):
-        st.session_state["sample"] = True
+    )
 
-with sample_col2:
 
-    if st.button(
-        "🗑️ Clear input",
+with button_col2:
+
+    clear_button = st.button(
+        "🗑️ Clear",
         use_container_width=True
-    ):
-        st.session_state["sample"] = False
+    )
 
-st.markdown("</div>", unsafe_allow_html=True)
+
+if sample_button:
+
+    st.session_state["use_sample"] = True
+
+    st.rerun()
+
+
+if clear_button:
+
+    st.session_state["use_sample"] = False
+
+    st.rerun()
 
 
 # ============================================================
@@ -381,73 +480,93 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 with st.sidebar:
 
-    st.markdown("## ⚙️ Analysis Parameters")
+    st.markdown(
+        "## ⚙️ Analysis Parameters"
+    )
 
     st.write(
-        "Adjust the parameters used for protein region detection."
+        "Adjust the parameters used for protein-region detection."
     )
 
     st.markdown("---")
 
     kd_window = st.slider(
         "Hydropathy window",
-        5,
-        25,
-        9,
-        2
+        min_value=5,
+        max_value=25,
+        value=9,
+        step=2
     )
 
     tm_cut = st.slider(
-        "Hydrophobic region cutoff (KD)",
-        1.0,
-        2.5,
-        1.6,
-        0.1
+        "Hydrophobic region cutoff",
+        min_value=1.0,
+        max_value=2.5,
+        value=1.6,
+        step=0.1
     )
 
     lc_cut = st.slider(
-        "Low-complexity entropy cutoff (bits)",
-        1.5,
-        3.5,
-        2.2,
-        0.1
+        "Low-complexity entropy cutoff",
+        min_value=1.5,
+        max_value=3.5,
+        value=2.2,
+        step=0.1
     )
 
     st.markdown("---")
 
     st.markdown(
-        "### 🧬 What is analysed?"
+        "### 🧬 Analysis Includes"
     )
 
-    st.markdown("""
-    - Amino-acid composition
-    - Molecular weight
-    - Isoelectric point
-    - GRAVY
-    - Hydropathy
-    - Protein regions
-    - Sequence motifs
-    - Low-complexity regions
-    """)
+    st.markdown(
+        """
+        • Amino-acid composition  
+        • Molecular weight  
+        • Isoelectric point  
+        • GRAVY  
+        • Hydropathy  
+        • Protein regions  
+        • Sequence motifs  
+        • Low-complexity regions
+        """
+    )
 
 
 # ============================================================
-# GET INPUT
+# DETERMINE INPUT
 # ============================================================
 
-text = (
-    up.getvalue().decode()
-    if up
-    else pasted
-    or (SAMPLE if st.session_state.get("sample") else "")
-)
+if st.session_state.get("use_sample", False):
+
+    sequence_text = SAMPLE
+
+elif uploaded_file is not None:
+
+    sequence_text = uploaded_file.getvalue().decode(
+        "utf-8",
+        errors="ignore"
+    )
+
+elif pasted_sequence.strip():
+
+    sequence_text = pasted_sequence
+
+else:
+
+    sequence_text = ""
 
 
-if not text.strip():
+# ============================================================
+# NO INPUT MESSAGE
+# ============================================================
+
+if not sequence_text.strip():
 
     st.info(
-        "👆 Upload or paste a protein FASTA sequence above "
-        "to begin the analysis."
+        "👆 Upload a FASTA file, paste a protein sequence, "
+        "or click **Load Sample** to begin."
     )
 
     st.stop()
@@ -457,23 +576,28 @@ if not text.strip():
 # FASTA PARSING
 # ============================================================
 
-@st.cache_data(show_spinner="🔬 Parsing FASTA sequence…")
-def load(t):
+@st.cache_data(show_spinner="🔬 Parsing FASTA sequence...")
+def load_fasta(text):
 
-    return an.parse_fasta(t)
+    return an.parse_fasta(text)
 
 
-df, engine = load(text)
+df, engine = load_fasta(sequence_text)
+
 
 df = df[
     df.clean_length > 0
 ].reset_index(drop=True)
 
 
+# ============================================================
+# VALIDATION
+# ============================================================
+
 if df.empty:
 
     st.error(
-        "No valid protein sequences were found."
+        "❌ No valid protein sequences were found."
     )
 
     st.stop()
@@ -493,9 +617,11 @@ choice = st.selectbox(
     df.id
 )
 
+
 row = df[
     df.id == choice
 ].iloc[0]
+
 
 seq = row.cleaned_seq
 
@@ -503,7 +629,8 @@ seq = row.cleaned_seq
 if len(seq) < 10:
 
     st.warning(
-        "⚠️ Sequence is very short; results may be limited."
+        "⚠️ The selected sequence is very short. "
+        "Some analysis results may be limited."
     )
 
 
@@ -533,25 +660,25 @@ hydro = an.hydrophobicity_profile(
 # TABS
 # ============================================================
 
-t1, t2, t3, t4, t5 = st.tabs([
-    "📋 Overview",
-    "🔬 Fingerprint",
-    "🗺️ Protein Map",
-    "📑 Regions & Motifs",
-    "📈 Graphs"
-])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    [
+        "📋 Overview",
+        "🔬 Fingerprint",
+        "🗺️ Protein Map",
+        "📑 Regions & Motifs",
+        "📈 Graphs"
+    ]
+)
 
 
 # ============================================================
-# OVERVIEW
+# TAB 1 — OVERVIEW
 # ============================================================
 
-with t1:
+with tab1:
 
     st.markdown(
-        '<div class="section-heading">'
-        '📋 Protein Overview'
-        '</div>',
+        '<div class="section-heading">📋 Protein Overview</div>',
         unsafe_allow_html=True
     )
 
@@ -559,32 +686,39 @@ with t1:
 
     st.write(row.description)
 
-    c1, c2, c3, c4 = st.columns(4)
+    metric1, metric2, metric3, metric4 = st.columns(4)
 
-    c1.metric(
-        "🧬 Cleaned length",
-        row.clean_length
-    )
+    with metric1:
 
-    c2.metric(
-        "✂️ Removed characters",
-        row.removed_chars
-    )
-
-    c3.metric(
-        "⚖️ MW (kDa)",
-        round(
-            props["Molecular weight (Da)"] / 1000,
-            2
+        st.metric(
+            "🧬 Sequence Length",
+            row.clean_length
         )
-    )
 
-    c4.metric(
-        "⚡ pI",
-        props["Isoelectric point (pI)"]
-    )
+    with metric2:
 
-    st.markdown("### 🔍 Physicochemical Properties")
+        st.metric(
+            "✂️ Removed Characters",
+            row.removed_chars
+        )
+
+    with metric3:
+
+        st.metric(
+            "⚖️ Molecular Weight",
+            f"{props['Molecular weight (Da)'] / 1000:.2f} kDa"
+        )
+
+    with metric4:
+
+        st.metric(
+            "⚡ Isoelectric Point",
+            props["Isoelectric point (pI)"]
+        )
+
+    st.markdown(
+        "### 🔍 Physicochemical Properties"
+    )
 
     properties_df = pd.DataFrame(
         props.items(),
@@ -609,65 +743,74 @@ with t1:
 
 
 # ============================================================
-# FINGERPRINT
+# TAB 2 — FINGERPRINT
 # ============================================================
 
-with t2:
+with tab2:
 
     st.markdown(
-        '<div class="section-heading">'
-        '🔬 Protein Fingerprint'
-        '</div>',
+        '<div class="section-heading">🔬 Protein Fingerprint</div>',
         unsafe_allow_html=True
     )
 
-    a, b = st.columns(2)
+    chart1, chart2 = st.columns(2)
 
-    # Radar chart
 
-    radar = go.Figure(
-        go.Scatterpolar(
-            r=list(comp.percent) + [comp.percent[0]],
-            theta=list(comp.aa) + [comp.aa[0]],
-            fill="toself"
-        )
-    )
+    # --------------------------------------------------------
+    # RADAR CHART
+    # --------------------------------------------------------
 
-    radar.update_layout(
-        title="Amino-acid fingerprint (%)",
-        height=430,
-        polar=dict(
-            radialaxis=dict(
-                visible=True
+    with chart1:
+
+        radar = go.Figure(
+            go.Scatterpolar(
+                r=list(comp.percent) + [comp.percent[0]],
+                theta=list(comp.aa) + [comp.aa[0]],
+                fill="toself"
             )
         )
-    )
 
-    a.plotly_chart(
-        radar,
-        use_container_width=True
-    )
+        radar.update_layout(
+            title="Amino-acid Fingerprint (%)",
+            height=430,
+            polar=dict(
+                radialaxis=dict(
+                    visible=True
+                )
+            )
+        )
 
-
-    # Pie chart
-
-    g = an.group_composition(seq)
-
-    pie = px.pie(
-        g,
-        names="group",
-        values="percent",
-        hole=0.45,
-        title="Physicochemical groups"
-    )
-
-    b.plotly_chart(
-        pie,
-        use_container_width=True
-    )
+        st.plotly_chart(
+            radar,
+            use_container_width=True
+        )
 
 
-    # Heatmap
+    # --------------------------------------------------------
+    # PIE CHART
+    # --------------------------------------------------------
+
+    with chart2:
+
+        grouped = an.group_composition(seq)
+
+        pie = px.pie(
+            grouped,
+            names="group",
+            values="percent",
+            hole=0.45,
+            title="Physicochemical Groups"
+        )
+
+        st.plotly_chart(
+            pie,
+            use_container_width=True
+        )
+
+
+    # --------------------------------------------------------
+    # HEATMAP
+    # --------------------------------------------------------
 
     st.markdown(
         "### 🌡️ Positional Amino-acid Fingerprint"
@@ -685,121 +828,156 @@ with t2:
         dtype=int
     )
 
-    mat = np.array([
+    mat = np.array(
         [
-            seq[
-                edges[i]:edges[i + 1]
-            ].count(x)
-            /
-            max(
-                1,
-                edges[i + 1] - edges[i]
-            )
-            for i in range(nb)
-        ]
-        for x in an.AA
-    ])
+            [
+                seq[
+                    edges[i]:edges[i + 1]
+                ].count(aa)
+                /
+                max(
+                    1,
+                    edges[i + 1] - edges[i]
+                )
 
-    hm = px.imshow(
+                for i in range(nb)
+            ]
+
+            for aa in an.AA
+        ]
+    )
+
+    heatmap = px.imshow(
         mat,
+
         x=[
             f"{edges[i] + 1}-{edges[i + 1]}"
             for i in range(nb)
         ],
+
         y=list(an.AA),
+
         aspect="auto",
+
         color_continuous_scale="Viridis",
-        title="Residue frequency along the protein sequence"
+
+        title="Residue Frequency Along Protein Sequence"
     )
 
     st.plotly_chart(
-        hm,
+        heatmap,
         use_container_width=True
     )
 
 
 # ============================================================
-# PROTEIN MAP
+# TAB 3 — PROTEIN MAP
 # ============================================================
 
-with t3:
+with tab3:
 
     st.markdown(
-        '<div class="section-heading">'
-        '🗺️ Interactive Protein Map'
-        '</div>',
+        '<div class="section-heading">🗺️ Interactive Protein Map</div>',
         unsafe_allow_html=True
     )
 
-    COL = {
+    REGION_COLORS = {
         "Hydrophobic / TM-like": "#f97316",
         "Low complexity": "#8b5cf6",
         "Charged-rich": "#2563eb"
     }
 
-    lanes = list(COL) + ["Motifs"]
+    lanes = list(
+        REGION_COLORS
+    ) + ["Motifs"]
+
 
     fig = make_subplots(
         rows=2,
         cols=1,
+
         shared_xaxes=True,
-        row_heights=[0.55, 0.45],
+
+        row_heights=[
+            0.55,
+            0.45
+        ],
+
         vertical_spacing=0.04
     )
 
+
+    # --------------------------------------------------------
+    # PROTEIN BASE LINE
+    # --------------------------------------------------------
+
     fig.add_shape(
         type="rect",
+
         x0=1,
         x1=len(seq),
+
         y0=-0.05,
         y1=0.05,
+
         fillcolor="#cbd5e1",
+
         line_width=0,
+
         row=1,
         col=1
     )
 
-    for r in regions.itertuples():
 
-        y = lanes.index(
-            r.region
-        ) + 1
+    # --------------------------------------------------------
+    # REGIONS
+    # --------------------------------------------------------
+
+    for region in regions.itertuples():
+
+        y_position = (
+            lanes.index(
+                region.region
+            ) + 1
+        )
 
         fig.add_trace(
             go.Scatter(
+
                 x=[
-                    r.start,
-                    r.end,
-                    r.end,
-                    r.start,
-                    r.start
+                    region.start,
+                    region.end,
+                    region.end,
+                    region.start,
+                    region.start
                 ],
 
                 y=[
-                    y - .35,
-                    y - .35,
-                    y + .35,
-                    y + .35,
-                    y - .35
+                    y_position - 0.35,
+                    y_position - 0.35,
+                    y_position + 0.35,
+                    y_position + 0.35,
+                    y_position - 0.35
                 ],
 
                 fill="toself",
+
                 mode="lines",
 
                 line=dict(
-                    color=COL[r.region]
+                    color=REGION_COLORS[
+                        region.region
+                    ]
                 ),
 
-                name=r.region,
-
-                legendgroup=r.region,
+                name=region.region,
 
                 showlegend=False,
 
                 hovertext=(
-                    f"{r.region}<br>"
-                    f"{r.start}-{r.end}"
-                    f"<br>GRAVY: {r.gravy}"
+                    f"{region.region}<br>"
+                    f"Position: {region.start}-{region.end}"
+                    f"<br>GRAVY: {region.gravy}"
                 ),
 
                 hoverinfo="text"
@@ -810,13 +988,17 @@ with t3:
         )
 
 
+    # --------------------------------------------------------
+    # MOTIFS
+    # --------------------------------------------------------
+
     if not motifs.empty:
 
         fig.add_trace(
             go.Scatter(
+
                 x=(
-                    motifs.start
-                    +
+                    motifs.start +
                     motifs.end
                 ) / 2,
 
@@ -850,7 +1032,12 @@ with t3:
         )
 
 
+    # --------------------------------------------------------
+    # Y AXIS
+    # --------------------------------------------------------
+
     fig.update_yaxes(
+
         tickvals=list(
             range(
                 1,
@@ -862,7 +1049,7 @@ with t3:
 
         range=[
             -0.6,
-            len(lanes) + .6
+            len(lanes) + 0.6
         ],
 
         row=1,
@@ -870,14 +1057,22 @@ with t3:
     )
 
 
+    # --------------------------------------------------------
+    # HYDROPATHY
+    # --------------------------------------------------------
+
     fig.add_trace(
         go.Scatter(
+
             x=hydro.position,
+
             y=hydro.kd,
+
             line=dict(
                 color="#0f766e",
                 width=3
             ),
+
             name="Kyte-Doolittle"
         ),
 
@@ -895,7 +1090,7 @@ with t3:
 
 
     fig.update_xaxes(
-        title_text="Residue position",
+        title_text="Residue Position",
         row=2,
         col=1
     )
@@ -909,8 +1104,10 @@ with t3:
 
     fig.update_layout(
         height=650,
+
         showlegend=False,
-        title=f"Protein map — {row.id}"
+
+        title=f"Protein Map — {row.id}"
     )
 
 
@@ -919,6 +1116,7 @@ with t3:
         use_container_width=True
     )
 
+
     st.caption(
         "💡 Hover over regions for details. "
         "Drag to zoom and double-click to reset."
@@ -926,17 +1124,16 @@ with t3:
 
 
 # ============================================================
-# REGIONS & MOTIFS
+# TAB 4 — REGIONS & MOTIFS
 # ============================================================
 
-with t4:
+with tab4:
 
     st.markdown(
-        '<div class="section-heading">'
-        '📑 Detected Protein Regions'
-        '</div>',
+        '<div class="section-heading">📑 Detected Protein Regions</div>',
         unsafe_allow_html=True
     )
+
 
     if not regions.empty:
 
@@ -949,16 +1146,15 @@ with t4:
     else:
 
         st.info(
-            "No regions detected with the current thresholds."
+            "No regions were detected with the current thresholds."
         )
 
 
     st.markdown(
-        '<div class="section-heading">'
-        '🎯 Detected Sequence Motifs'
-        '</div>',
+        '<div class="section-heading">🎯 Detected Sequence Motifs</div>',
         unsafe_allow_html=True
     )
+
 
     if not motifs.empty:
 
@@ -971,105 +1167,132 @@ with t4:
     else:
 
         st.info(
-            "No sequence motifs found."
+            "No sequence motifs were found."
         )
 
 
 # ============================================================
-# GRAPHS
+# TAB 5 — GRAPHS
 # ============================================================
 
-with t5:
+with tab5:
 
     st.markdown(
-        '<div class="section-heading">'
-        '📈 Protein Analysis Graphs'
-        '</div>',
+        '<div class="section-heading">📈 Protein Analysis Graphs</div>',
         unsafe_allow_html=True
     )
 
 
-    # Amino acid composition
+    # --------------------------------------------------------
+    # AMINO ACID COMPOSITION
+    # --------------------------------------------------------
 
-    bar = px.bar(
+    composition_bar = px.bar(
         comp,
+
         x="aa",
+
         y="percent",
-        title="Amino-acid composition (%)",
+
+        title="Amino-acid Composition (%)",
+
         color="percent",
+
         color_continuous_scale="Tealgrn"
     )
 
     st.plotly_chart(
-        bar,
+        composition_bar,
         use_container_width=True
     )
 
 
-    # Hydropathy
+    # --------------------------------------------------------
+    # HYDROPATHY PROFILE
+    # --------------------------------------------------------
 
-    line = px.line(
+    hydropathy_line = px.line(
         hydro,
+
         x="position",
+
         y="kd",
+
         title=(
-            f"Hydropathy profile "
-            f"(window {kd_window})"
+            f"Hydropathy Profile "
+            f"(Window = {kd_window})"
         )
     )
 
     st.plotly_chart(
-        line,
+        hydropathy_line,
         use_container_width=True
     )
 
 
-    # Multi-sequence comparison
+    # --------------------------------------------------------
+    # MULTI-SEQUENCE COMPARISON
+    # --------------------------------------------------------
 
     if len(df) > 1:
 
-        rows = []
+        comparison_rows = []
 
-        for r in df.itertuples():
+        for protein in df.itertuples():
 
-            p = an.properties(
-                r.cleaned_seq
+            protein_properties = an.properties(
+                protein.cleaned_seq
             )
 
-            rows.append(
-                dict(
-                    id=r.id,
-                    length=p["Length (aa)"],
-                    pI=p[
+            comparison_rows.append(
+                {
+                    "id": protein.id,
+
+                    "length": protein_properties[
+                        "Length (aa)"
+                    ],
+
+                    "pI": protein_properties[
                         "Isoelectric point (pI)"
                     ],
-                    gravy=p[
+
+                    "gravy": protein_properties[
                         "GRAVY (hydropathy)"
                     ],
-                    mw=p[
+
+                    "mw": protein_properties[
                         "Molecular weight (Da)"
                     ]
-                )
+                }
             )
+
 
         comparison_df = pd.DataFrame(
-            rows
+            comparison_rows
         )
 
-        scatter = px.scatter(
+
+        comparison_plot = px.scatter(
+
             comparison_df,
+
             x="pI",
+
             y="gravy",
+
             size="mw",
+
             hover_name="id",
+
             title=(
-                "Multi-sequence comparison "
-                "(bubble size = molecular weight)"
+                "Multi-sequence Comparison "
+                "(Bubble Size = Molecular Weight)"
             )
         )
 
+
         st.plotly_chart(
-            scatter,
+            comparison_plot,
             use_container_width=True
         )
 
@@ -1078,11 +1301,22 @@ with t5:
 # FOOTER
 # ============================================================
 
-st.markdown("""
-<div class="footer">
-    🧬 <b>Protein Profiler</b> · Interactive Protein Sequence Analysis
-    <br>
-    Amino-acid composition • Physicochemical properties • Hydropathy •
-    Regions • Motifs
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="footer">
+
+        🧬 <b>Protein Profiler</b>
+        · Interactive Protein Sequence Analysis
+
+        <br><br>
+
+        Amino-acid composition
+        • Physicochemical properties
+        • Hydropathy
+        • Protein regions
+        • Sequence motifs
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
