@@ -7,8 +7,138 @@ from plotly.subplots import make_subplots
 
 import analysis as an
 
-st.set_page_config(page_title="Protein Profiler", page_icon="🧬", layout="wide")
+
+# ============================================================
+# PAGE CONFIGURATION
+# ============================================================
+
+st.set_page_config(
+    page_title="Protein Profiler",
+    page_icon="🧬",
+    layout="wide"
+)
+
+
+# ============================================================
+# CUSTOM COLOURFUL DESIGN
+# ============================================================
+
+st.markdown("""
+<style>
+
+/* Main page background */
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #f5f7ff 0%,
+        #eefcff 50%,
+        #f0fff9 100%
+    );
+}
+
+/* Main title */
+h1 {
+    color: #2563eb;
+    font-weight: 800;
+}
+
+/* Section headings */
+h2, h3 {
+    color: #0f766e;
+    font-weight: 700;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(
+        180deg,
+        #dbeafe 0%,
+        #ccfbf1 100%
+    );
+}
+
+/* Sidebar headings */
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    color: #075985;
+    font-weight: 700;
+}
+
+/* Metric cards */
+div[data-testid="stMetric"] {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #bae6fd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Metric values */
+div[data-testid="stMetricValue"] {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+/* Tabs */
+button[data-baseweb="tab"] {
+    font-weight: 600;
+}
+
+/* Active tab */
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #2563eb;
+    border-bottom: 3px solid #2563eb;
+}
+
+/* Tables */
+div[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Alert / information boxes */
+div[data-testid="stAlert"] {
+    border-radius: 12px;
+}
+
+/* Buttons */
+.stButton > button {
+    border-radius: 10px;
+    font-weight: 600;
+    border: 1px solid #93c5fd;
+}
+
+/* File uploader */
+section[data-testid="stFileUploaderDropzone"] {
+    border-radius: 12px;
+}
+
+/* Select boxes */
+div[data-baseweb="select"] > div {
+    border-radius: 10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# TITLE
+# ============================================================
+
 st.title("🧬 Interactive Protein Sequence Profiling & Region Mapping")
+
+st.caption(
+    "Analyze amino-acid composition, physicochemical properties, "
+    "hydropathy, protein regions and sequence motifs."
+)
+
+
+# ============================================================
+# SAMPLE PROTEINS
+# ============================================================
 
 SAMPLE = """>sp|P69905|HBA_HUMAN Hemoglobin subunit alpha
 MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG
@@ -24,23 +154,83 @@ PGSTKRALPNNTSSSPQPKKKPLDGEYFTLQIRGRERFEMFRELNEALELKDAQAGKEPG
 GSRAHSSHLKSKKGQSTSRHKKLMFKTEGPDSD
 """
 
-# ---------------- Sidebar ----------------
-with st.sidebar:
-    st.header("Input")
-    up = st.file_uploader("Upload FASTA", type=["fasta", "fa", "faa", "txt"])
-    pasted = st.text_area("…or paste FASTA", height=120)
-    if st.button("Load sample proteins"):
-        st.session_state["sample"] = True
-    st.header("Parameters")
-    kd_window = st.slider("Hydropathy window", 5, 25, 9, 2)
-    tm_cut = st.slider("Hydrophobic region cutoff (KD)", 1.0, 2.5, 1.6, 0.1)
-    lc_cut = st.slider("Low-complexity entropy cutoff (bits)", 1.5, 3.5, 2.2, 0.1)
 
-text = up.getvalue().decode() if up else pasted or (SAMPLE if st.session_state.get("sample") else "")
+# ============================================================
+# SIDEBAR
+# ============================================================
+
+with st.sidebar:
+
+    st.header("🧬 Input")
+
+    up = st.file_uploader(
+        "Upload FASTA",
+        type=["fasta", "fa", "faa", "txt"]
+    )
+
+    pasted = st.text_area(
+        "…or paste FASTA",
+        height=120
+    )
+
+    if st.button("🧪 Load sample proteins"):
+        st.session_state["sample"] = True
+
+    st.header("⚙️ Parameters")
+
+    kd_window = st.slider(
+        "Hydropathy window",
+        5,
+        25,
+        9,
+        2
+    )
+
+    tm_cut = st.slider(
+        "Hydrophobic region cutoff (KD)",
+        1.0,
+        2.5,
+        1.6,
+        0.1
+    )
+
+    lc_cut = st.slider(
+        "Low-complexity entropy cutoff (bits)",
+        1.5,
+        3.5,
+        2.2,
+        0.1
+    )
+
+
+# ============================================================
+# INPUT HANDLING
+# ============================================================
+
+text = (
+    up.getvalue().decode()
+    if up
+    else pasted
+    or (
+        SAMPLE
+        if st.session_state.get("sample")
+        else ""
+    )
+)
+
 if not text.strip():
-    st.info("Upload or paste a protein FASTA file (or click **Load sample proteins**) to begin.")
+
+    st.info(
+        "Upload or paste a protein FASTA file "
+        "(or click **Load sample proteins**) to begin."
+    )
+
     st.stop()
 
+
+# ============================================================
+# FASTA LOADING
+# ============================================================
 
 @st.cache_data(show_spinner="Parsing FASTA…")
 def load(t):
@@ -48,120 +238,500 @@ def load(t):
 
 
 df, engine = load(text)
-df = df[df.clean_length > 0].reset_index(drop=True)
-if df.empty:
-    st.error("No valid protein sequences found.")
-    st.stop()
-st.caption(f"Parsed with: **{engine}**")
 
-choice = st.selectbox("Select sequence", df.id)
-row = df[df.id == choice].iloc[0]
+df = df[
+    df.clean_length > 0
+].reset_index(drop=True)
+
+
+if df.empty:
+
+    st.error("No valid protein sequences found.")
+
+    st.stop()
+
+
+st.caption(
+    f"Parsed with: **{engine}**"
+)
+
+
+# ============================================================
+# SEQUENCE SELECTION
+# ============================================================
+
+choice = st.selectbox(
+    "🧬 Select sequence",
+    df.id
+)
+
+row = df[
+    df.id == choice
+].iloc[0]
+
 seq = row.cleaned_seq
+
+
 if len(seq) < 10:
-    st.warning("Sequence is very short; results may be limited.")
+
+    st.warning(
+        "Sequence is very short; results may be limited."
+    )
+
+
+# ============================================================
+# ANALYSIS
+# ============================================================
 
 comp = an.composition(seq)
+
 props = an.properties(seq)
-regions = an.detect_regions(seq, tm_cutoff=tm_cut, lc_cutoff=lc_cut)
+
+regions = an.detect_regions(
+    seq,
+    tm_cutoff=tm_cut,
+    lc_cutoff=lc_cut
+)
+
 motifs = an.detect_motifs(seq)
-hydro = an.hydrophobicity_profile(seq, kd_window)
 
-t1, t2, t3, t4, t5 = st.tabs(["📋 Overview", "🔬 Fingerprint", "🗺️ Protein map", "📑 Regions & motifs", "📈 Graphs"])
+hydro = an.hydrophobicity_profile(
+    seq,
+    kd_window
+)
 
-# ---------------- Overview ----------------
+
+# ============================================================
+# TABS
+# ============================================================
+
+t1, t2, t3, t4, t5 = st.tabs(
+    [
+        "📋 Overview",
+        "🔬 Fingerprint",
+        "🗺️ Protein map",
+        "📑 Regions & motifs",
+        "📈 Graphs"
+    ]
+)
+
+
+# ============================================================
+# OVERVIEW
+# ============================================================
+
 with t1:
+
     st.subheader(row.id)
+
     st.write(row.description)
+
     c = st.columns(4)
-    c[0].metric("Cleaned length", row.clean_length)
-    c[1].metric("Removed characters", row.removed_chars)
-    c[2].metric("MW (kDa)", round(props["Molecular weight (Da)"] / 1000, 2))
-    c[3].metric("pI", props["Isoelectric point (pI)"])
-    st.dataframe(pd.DataFrame(props.items(), columns=["Property", "Value"]).astype(str),
-                 hide_index=True, use_container_width=True)
-    st.markdown("**All sequences in file (Perl-cleaned stats)**")
-    st.dataframe(df.drop(columns="cleaned_seq"), hide_index=True, use_container_width=True)
 
-# ---------------- Fingerprint ----------------
+    c[0].metric(
+        "Cleaned length",
+        row.clean_length
+    )
+
+    c[1].metric(
+        "Removed characters",
+        row.removed_chars
+    )
+
+    c[2].metric(
+        "MW (kDa)",
+        round(
+            props["Molecular weight (Da)"] / 1000,
+            2
+        )
+    )
+
+    c[3].metric(
+        "pI",
+        props["Isoelectric point (pI)"]
+    )
+
+    st.dataframe(
+        pd.DataFrame(
+            props.items(),
+            columns=["Property", "Value"]
+        ).astype(str),
+        hide_index=True,
+        use_container_width=True
+    )
+
+    st.markdown(
+        "**All sequences in file (Perl-cleaned stats)**"
+    )
+
+    st.dataframe(
+        df.drop(columns="cleaned_seq"),
+        hide_index=True,
+        use_container_width=True
+    )
+
+
+# ============================================================
+# FINGERPRINT
+# ============================================================
+
 with t2:
+
     a, b = st.columns(2)
-    radar = go.Figure(go.Scatterpolar(r=list(comp.percent) + [comp.percent[0]],
-                                      theta=list(comp.aa) + [comp.aa[0]], fill="toself"))
-    radar.update_layout(title="Amino-acid fingerprint (% composition)", height=420,
-                        polar=dict(radialaxis=dict(visible=True)))
-    a.plotly_chart(radar, use_container_width=True)
+
+    # Amino acid radar chart
+    radar = go.Figure(
+        go.Scatterpolar(
+            r=list(comp.percent) + [comp.percent[0]],
+            theta=list(comp.aa) + [comp.aa[0]],
+            fill="toself"
+        )
+    )
+
+    radar.update_layout(
+        title="Amino-acid fingerprint (% composition)",
+        height=420,
+        polar=dict(
+            radialaxis=dict(
+                visible=True
+            )
+        )
+    )
+
+    a.plotly_chart(
+        radar,
+        use_container_width=True
+    )
+
+    # Physicochemical groups
     g = an.group_composition(seq)
-    b.plotly_chart(px.pie(g, names="group", values="percent", hole=0.45,
-                          title="Physicochemical groups"), use_container_width=True)
 
-    # positional fingerprint: residue type x sequence bin
-    nb = min(60, len(seq))
-    edges = np.linspace(0, len(seq), nb + 1, dtype=int)
-    mat = np.array([[seq[edges[i]:edges[i + 1]].count(x) / max(1, edges[i + 1] - edges[i])
-                     for i in range(nb)] for x in an.AA])
-    hm = px.imshow(mat, x=[f"{edges[i]+1}-{edges[i+1]}" for i in range(nb)], y=list(an.AA),
-                   aspect="auto", color_continuous_scale="Viridis",
-                   title="Positional fingerprint (residue frequency along the sequence)")
-    st.plotly_chart(hm, use_container_width=True)
+    b.plotly_chart(
+        px.pie(
+            g,
+            names="group",
+            values="percent",
+            hole=0.45,
+            title="Physicochemical groups"
+        ),
+        use_container_width=True
+    )
 
-# ---------------- Protein map ----------------
+    # Positional fingerprint
+    nb = min(
+        60,
+        len(seq)
+    )
+
+    edges = np.linspace(
+        0,
+        len(seq),
+        nb + 1,
+        dtype=int
+    )
+
+    mat = np.array(
+        [
+            [
+                seq[
+                    edges[i]:edges[i + 1]
+                ].count(x)
+                /
+                max(
+                    1,
+                    edges[i + 1] - edges[i]
+                )
+                for i in range(nb)
+            ]
+            for x in an.AA
+        ]
+    )
+
+    hm = px.imshow(
+        mat,
+        x=[
+            f"{edges[i] + 1}-{edges[i + 1]}"
+            for i in range(nb)
+        ],
+        y=list(an.AA),
+        aspect="auto",
+        color_continuous_scale="Viridis",
+        title="Positional fingerprint "
+              "(residue frequency along the sequence)"
+    )
+
+    st.plotly_chart(
+        hm,
+        use_container_width=True
+    )
+
+
+# ============================================================
+# PROTEIN MAP
+# ============================================================
+
 with t3:
-    COL = {"Hydrophobic / TM-like": "#e67e22", "Low complexity": "#8e44ad", "Charged-rich": "#2980b9"}
-    lanes = list(COL) + ["Motifs"]
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.55, 0.45],
-                        vertical_spacing=0.04)
-    fig.add_shape(type="rect", x0=1, x1=len(seq), y0=-0.05, y1=0.05, fillcolor="#bbb",
-                  line_width=0, row=1, col=1)
-    for r in regions.itertuples():
-        y = lanes.index(r.region) + 1
-        fig.add_trace(go.Scatter(x=[r.start, r.end, r.end, r.start, r.start],
-                                 y=[y - .35, y - .35, y + .35, y + .35, y - .35], fill="toself",
-                                 mode="lines", line=dict(color=COL[r.region]), name=r.region,
-                                 legendgroup=r.region, showlegend=False,
-                                 hovertext=f"{r.region}<br>{r.start}-{r.end} (GRAVY {r.gravy})",
-                                 hoverinfo="text"), row=1, col=1)
-    if not motifs.empty:
-        fig.add_trace(go.Scatter(x=(motifs.start + motifs.end) / 2, y=[len(lanes)] * len(motifs),
-                                 mode="markers", marker=dict(size=10, symbol="diamond", color="#c0392b"),
-                                 text=motifs.motif + " " + motifs.match + " @" + motifs.start.astype(str),
-                                 hoverinfo="text", name="Motifs"), row=1, col=1)
-    fig.update_yaxes(tickvals=list(range(1, len(lanes) + 1)), ticktext=lanes, range=[-0.6, len(lanes) + .6],
-                     row=1, col=1)
-    fig.add_trace(go.Scatter(x=hydro.position, y=hydro.kd, line=dict(color="#16a085"),
-                             name="Kyte-Doolittle"), row=2, col=1)
-    fig.add_hline(y=0, line_dash="dot", row=2, col=1)
-    fig.update_xaxes(title_text="Residue position", row=2, col=1)
-    fig.update_yaxes(title_text="Hydropathy", row=2, col=1)
-    fig.update_layout(height=620, showlegend=False, title=f"Interactive map — {row.id}")
-    st.plotly_chart(fig, use_container_width=True)
-    st.caption("Hover for details · drag to zoom · double-click to reset.")
 
-# ---------------- Regions & motifs ----------------
+    COL = {
+        "Hydrophobic / TM-like": "#e67e22",
+        "Low complexity": "#8e44ad",
+        "Charged-rich": "#2980b9"
+    }
+
+    lanes = list(COL) + ["Motifs"]
+
+    fig = make_subplots(
+        rows=2,
+        cols=1,
+        shared_xaxes=True,
+        row_heights=[0.55, 0.45],
+        vertical_spacing=0.04
+    )
+
+    fig.add_shape(
+        type="rect",
+        x0=1,
+        x1=len(seq),
+        y0=-0.05,
+        y1=0.05,
+        fillcolor="#bbb",
+        line_width=0,
+        row=1,
+        col=1
+    )
+
+    for r in regions.itertuples():
+
+        y = lanes.index(
+            r.region
+        ) + 1
+
+        fig.add_trace(
+            go.Scatter(
+                x=[
+                    r.start,
+                    r.end,
+                    r.end,
+                    r.start,
+                    r.start
+                ],
+                y=[
+                    y - .35,
+                    y - .35,
+                    y + .35,
+                    y + .35,
+                    y - .35
+                ],
+                fill="toself",
+                mode="lines",
+                line=dict(
+                    color=COL[r.region]
+                ),
+                name=r.region,
+                legendgroup=r.region,
+                showlegend=False,
+                hovertext=(
+                    f"{r.region}<br>"
+                    f"{r.start}-{r.end} "
+                    f"(GRAVY {r.gravy})"
+                ),
+                hoverinfo="text"
+            ),
+            row=1,
+            col=1
+        )
+
+    if not motifs.empty:
+
+        fig.add_trace(
+            go.Scatter(
+                x=(
+                    motifs.start +
+                    motifs.end
+                ) / 2,
+                y=[
+                    len(lanes)
+                ] * len(motifs),
+                mode="markers",
+                marker=dict(
+                    size=10,
+                    symbol="diamond",
+                    color="#c0392b"
+                ),
+                text=(
+                    motifs.motif
+                    + " "
+                    + motifs.match
+                    + " @"
+                    + motifs.start.astype(str)
+                ),
+                hoverinfo="text",
+                name="Motifs"
+            ),
+            row=1,
+            col=1
+        )
+
+    fig.update_yaxes(
+        tickvals=list(
+            range(
+                1,
+                len(lanes) + 1
+            )
+        ),
+        ticktext=lanes,
+        range=[
+            -0.6,
+            len(lanes) + .6
+        ],
+        row=1,
+        col=1
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=hydro.position,
+            y=hydro.kd,
+            line=dict(
+                color="#16a085"
+            ),
+            name="Kyte-Doolittle"
+        ),
+        row=2,
+        col=1
+    )
+
+    fig.add_hline(
+        y=0,
+        line_dash="dot",
+        row=2,
+        col=1
+    )
+
+    fig.update_xaxes(
+        title_text="Residue position",
+        row=2,
+        col=1
+    )
+
+    fig.update_yaxes(
+        title_text="Hydropathy",
+        row=2,
+        col=1
+    )
+
+    fig.update_layout(
+        height=620,
+        showlegend=False,
+        title=f"Interactive map — {row.id}"
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+    st.caption(
+        "Hover for details · drag to zoom · "
+        "double-click to reset."
+    )
+
+
+# ============================================================
+# REGIONS & MOTIFS
+# ============================================================
+
 with t4:
+
     st.subheader("Detected regions")
 
     if not regions.empty:
-        st.dataframe(regions, hide_index=True, use_container_width=True)
+
+        st.dataframe(
+            regions,
+            hide_index=True,
+            use_container_width=True
+        )
+
     else:
-        st.write("No regions detected with the current thresholds.")
+
+        st.write(
+            "No regions detected with the current thresholds."
+        )
 
     st.subheader("Detected motifs")
 
     if not motifs.empty:
-        st.dataframe(motifs, hide_index=True, use_container_width=True)
+
+        st.dataframe(
+            motifs,
+            hide_index=True,
+            use_container_width=True
+        )
+
     else:
-        st.write("No motifs found.")
-# ---------------- Graphs ----------------
+
+        st.write(
+            "No motifs found."
+        )
+
+
+# ============================================================
+# GRAPHS
+# ============================================================
+
 with t5:
-    st.plotly_chart(px.bar(comp, x="aa", y="percent", title="Amino-acid composition (%)",
-                           color="percent", color_continuous_scale="Tealgrn"), use_container_width=True)
-    st.plotly_chart(px.line(hydro, x="position", y="kd",
-                            title=f"Hydropathy profile (window {kd_window})"), use_container_width=True)
+
+    st.plotly_chart(
+        px.bar(
+            comp,
+            x="aa",
+            y="percent",
+            title="Amino-acid composition (%)",
+            color="percent",
+            color_continuous_scale="Tealgrn"
+        ),
+        use_container_width=True
+    )
+
+    st.plotly_chart(
+        px.line(
+            hydro,
+            x="position",
+            y="kd",
+            title=f"Hydropathy profile (window {kd_window})"
+        ),
+        use_container_width=True
+    )
+
     if len(df) > 1:
+
         rows = []
+
         for r in df.itertuples():
-            p = an.properties(r.cleaned_seq)
-            rows.append(dict(id=r.id, length=p["Length (aa)"], pI=p["Isoelectric point (pI)"],
-                             gravy=p["GRAVY (hydropathy)"], mw=p["Molecular weight (Da)"]))
-        st.plotly_chart(px.scatter(pd.DataFrame(rows), x="pI", y="gravy", size="mw", hover_name="id",
-                                   title="Multi-sequence comparison (size = MW)"), use_container_width=True)
+
+            p = an.properties(
+                r.cleaned_seq
+            )
+
+            rows.append(
+                dict(
+                    id=r.id,
+                    length=p["Length (aa)"],
+                    pI=p["Isoelectric point (pI)"],
+                    gravy=p["GRAVY (hydropathy)"],
+                    mw=p["Molecular weight (Da)"]
+                )
+            )
+
+        st.plotly_chart(
+            px.scatter(
+                pd.DataFrame(rows),
+                x="pI",
+                y="gravy",
+                size="mw",
+                hover_name="id",
+                title="Multi-sequence comparison (size = MW)"
+            ),
+            use_container_width=True
+        )
