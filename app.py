@@ -21,598 +21,850 @@ st.set_page_config(
 
 
 # =========================================================
-# PROFESSIONAL CSS
+# PROFESSIONAL BLUE BIOINFORMATICS THEME
 # =========================================================
 
 st.markdown(
     """
     <style>
 
-    /* ---------------------------------------------------
-       MAIN APPLICATION
-       --------------------------------------------------- */
+    /* =====================================================
+       GLOBAL BACKGROUND
+       ===================================================== */
 
     .stApp {
         background:
             radial-gradient(
-                circle at 0% 0%,
-                rgba(219, 234, 254, 0.55),
-                transparent 28%
+                circle at 10% 10%,
+                rgba(37, 99, 235, 0.16),
+                transparent 25%
             ),
             radial-gradient(
-                circle at 100% 0%,
-                rgba(224, 242, 254, 0.45),
-                transparent 28%
+                circle at 90% 15%,
+                rgba(6, 182, 212, 0.14),
+                transparent 25%
             ),
             linear-gradient(
                 135deg,
                 #f8fbff 0%,
-                #f8fafc 55%,
+                #eef6ff 45%,
                 #f0fdfa 100%
             );
+
+        min-height: 100vh;
     }
 
 
+    /* =====================================================
+       MAIN CONTENT
+       ===================================================== */
+
     .block-container {
-        max-width: 1400px;
-        padding-top: 2rem;
+        max-width: 1450px;
+        padding-top: 1.5rem;
         padding-bottom: 3rem;
     }
 
 
-    /* ---------------------------------------------------
-       TITLE
-       --------------------------------------------------- */
-
-    h1 {
-        color: #174ea6 !important;
-        font-weight: 800 !important;
-        letter-spacing: -0.5px;
-    }
-
-
-    h2 {
-        color: #0f3d7a !important;
-        font-weight: 750 !important;
-    }
-
-
-    h3 {
-        color: #164e63 !important;
-        font-weight: 750 !important;
-    }
-
-
-    /* ---------------------------------------------------
-       SIDEBAR
-       --------------------------------------------------- */
-
-    section[data-testid="stSidebar"] {
-        background:
-            linear-gradient(
-                180deg,
-                #eff6ff 0%,
-                #f0f9ff 50%,
-                #ecfeff 100%
-            );
-
-        border-right: 1px solid #dbeafe;
-    }
-
-
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3 {
-        color: #0f3d7a !important;
-    }
-
-
-    /* ---------------------------------------------------
-       BUTTONS
-       --------------------------------------------------- */
-
-    .stButton > button {
-        border-radius: 12px;
-        min-height: 44px;
-
-        font-weight: 700;
-
-        background: linear-gradient(
-            90deg,
-            #2563eb,
-            #0891b2
-        );
-
-        color: white;
-
-        border: 1px solid #2563eb;
-
-        transition:
-            transform 0.15s ease,
-            box-shadow 0.15s ease;
-    }
-
-
-    .stButton > button:hover {
-        color: white;
-
-        transform: translateY(-1px);
-
-        box-shadow:
-            0 7px 18px rgba(37, 99, 235, 0.20);
-    }
-
-
-    /* ---------------------------------------------------
-       METRICS
-       --------------------------------------------------- */
-
-    div[data-testid="stMetric"] {
-        background: rgba(255, 255, 255, 0.96);
-
-        border: 1px solid #dbeafe;
-
-        border-radius: 16px;
-
-        padding: 16px;
-
-        box-shadow:
-            0 5px 18px rgba(15, 23, 42, 0.06);
-    }
-
-
-    div[data-testid="stMetricLabel"] {
-        color: #64748b;
-        font-weight: 650;
-    }
-
-
-    div[data-testid="stMetricValue"] {
-        color: #1d4ed8;
-        font-weight: 800;
-    }
-
-
-    /* ---------------------------------------------------
-       TABS
-       --------------------------------------------------- */
-
-    button[data-baseweb="tab"] {
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-
-    button[data-baseweb="tab"][aria-selected="true"] {
-        color: #2563eb;
-    }
-
-
-    /* ---------------------------------------------------
-       TEXT AREA
-       --------------------------------------------------- */
-
-    textarea {
-        border-radius: 12px !important;
-    }
-
-
-    /* ---------------------------------------------------
-       FILE UPLOADER
-       --------------------------------------------------- */
-
-    section[data-testid="stFileUploaderDropzone"] {
-        border-radius: 14px;
-
-        border: 2px dashed #93c5fd;
-
-        background: #f8fbff;
-    }
-
-
-    /* ---------------------------------------------------
-       SELECT BOX
-       --------------------------------------------------- */
-
-    div[data-baseweb="select"] > div {
-        border-radius: 11px;
-    }
-
-
-    /* ---------------------------------------------------
-       ALERTS
-       --------------------------------------------------- */
-
-    div[data-testid="stAlert"] {
-        border-radius: 13px;
-    }
-
-
-    /* ---------------------------------------------------
-       DATAFRAME
-       --------------------------------------------------- */
-
-    div[data-testid="stDataFrame"] {
-        border-radius: 14px;
-        overflow: hidden;
-        border: 1px solid #dbe3ef;
-    }
-
-
-    /* ---------------------------------------------------
-       DIVIDER
-       --------------------------------------------------- */
-
-    hr {
-        border-color: #dbeafe;
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
-# PROFESSIONAL ANIMATED HEADER
-# =========================================================
-
-import streamlit.components.v1 as components
-
-components.html(
-    """
-    <style>
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        background: transparent;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
-
-    .hero {
-        position: relative;
+    /* =====================================================
+       ANIMATED AMINO ACID BACKGROUND
+       ===================================================== */
+
+    .amino-background {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 300px;
+        height: 100%;
+        pointer-events: none;
         overflow: hidden;
-
-        border-radius: 28px;
-
-        background:
-            radial-gradient(
-                circle at 15% 30%,
-                rgba(59,130,246,0.18),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 85% 70%,
-                rgba(6,182,212,0.18),
-                transparent 30%
-            ),
-            linear-gradient(
-                135deg,
-                #f8fbff,
-                #eff6ff,
-                #ecfeff
-            );
-
-        border: 1px solid rgba(147,197,253,0.55);
-
-        box-shadow:
-            0 12px 35px rgba(30,64,175,0.10);
+        z-index: 0;
     }
 
 
-    /* ---------- HEADER TEXT ---------- */
-
-    .hero-title {
+    .amino {
         position: absolute;
 
-        top: 28px;
-        left: 0;
-        right: 0;
-
-        text-align: center;
-
-        font-size: 38px;
-        font-weight: 800;
-
-        letter-spacing: -1px;
-
-        background:
-            linear-gradient(
-                90deg,
-                #2563eb,
-                #0891b2,
-                #7c3aed
-            );
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-
-    .hero-subtitle {
-        position: absolute;
-
-        top: 80px;
-        left: 0;
-        right: 0;
-
-        text-align: center;
-
-        color: #64748b;
-
-        font-size: 15px;
-
-        letter-spacing: 0.5px;
-    }
-
-
-    /* ---------- PROTEIN CHAIN ---------- */
-
-    .protein-chain {
-        position: absolute;
-
-        left: 6%;
-        right: 6%;
-
-        top: 155px;
-
-        height: 3px;
-
-        background:
-            linear-gradient(
-                90deg,
-                transparent,
-                #60a5fa,
-                #06b6d4,
-                #60a5fa,
-                transparent
-            );
-
-        box-shadow:
-            0 0 12px rgba(6,182,212,0.35);
-    }
-
-
-    /* ---------- AMINO ACIDS ---------- */
-
-    .aa {
-        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         width: 42px;
         height: 42px;
 
         border-radius: 50%;
 
-        display: flex;
+        font-weight: 800;
+        font-size: 15px;
 
-        justify-content: center;
-        align-items: center;
+        color: rgba(37, 99, 235, 0.35);
+
+        background: rgba(255,255,255,0.45);
+
+        border: 1px solid rgba(37,99,235,0.12);
+
+        box-shadow:
+            0 0 25px rgba(37,99,235,0.08);
+
+        animation:
+            floatAmino 14s infinite ease-in-out;
+    }
+
+
+    .a1 {
+        left: 5%;
+        top: 18%;
+        animation-delay: 0s;
+    }
+
+    .a2 {
+        left: 18%;
+        top: 70%;
+        animation-delay: 3s;
+    }
+
+    .a3 {
+        left: 35%;
+        top: 12%;
+        animation-delay: 6s;
+    }
+
+    .a4 {
+        left: 60%;
+        top: 78%;
+        animation-delay: 2s;
+    }
+
+    .a5 {
+        left: 78%;
+        top: 22%;
+        animation-delay: 5s;
+    }
+
+    .a6 {
+        left: 90%;
+        top: 62%;
+        animation-delay: 8s;
+    }
+
+    .a7 {
+        left: 48%;
+        top: 45%;
+        animation-delay: 4s;
+    }
+
+
+    @keyframes floatAmino {
+
+        0% {
+            transform:
+                translateY(0px)
+                rotate(0deg);
+            opacity: 0.25;
+        }
+
+        50% {
+            transform:
+                translateY(-35px)
+                rotate(12deg);
+            opacity: 0.55;
+        }
+
+        100% {
+            transform:
+                translateY(0px)
+                rotate(0deg);
+            opacity: 0.25;
+        }
+    }
+
+
+    /* =====================================================
+       HERO SECTION
+       ===================================================== */
+
+    .hero {
+        position: relative;
+        z-index: 2;
+
+        padding: 30px 35px;
+
+        border-radius: 28px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0f3d91,
+                #2563eb 50%,
+                #0891b2
+            );
+
+        color: white;
+
+        box-shadow:
+            0 20px 50px rgba(37,99,235,0.25);
+
+        overflow: hidden;
+
+        margin-bottom: 25px;
+    }
+
+
+    .hero::before {
+        content: "";
+
+        position: absolute;
+
+        width: 280px;
+        height: 280px;
+
+        right: -80px;
+        top: -100px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.12);
+
+        animation:
+            heroPulse 6s infinite ease-in-out;
+    }
+
+
+    .hero::after {
+        content: "";
+
+        position: absolute;
+
+        width: 180px;
+        height: 180px;
+
+        left: -80px;
+        bottom: -80px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.08);
+
+        animation:
+            heroPulse 8s infinite ease-in-out reverse;
+    }
+
+
+    @keyframes heroPulse {
+
+        0%,100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+    }
+
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+    }
+
+
+    .hero-title {
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        margin-bottom: 8px;
+    }
+
+
+    .hero-subtitle {
+        font-size: 18px;
+        opacity: 0.92;
+        margin-bottom: 18px;
+    }
+
+
+    .hero-badge {
+        display: inline-block;
+
+        padding: 7px 14px;
+
+        border-radius: 999px;
+
+        background:
+            rgba(255,255,255,0.15);
+
+        border:
+            1px solid rgba(255,255,255,0.25);
+
+        font-size: 13px;
+        font-weight: 700;
+
+        backdrop-filter: blur(8px);
+    }
+
+
+    /* =====================================================
+       HEADINGS
+       ===================================================== */
+
+    h1 {
+        color: #0f3d91 !important;
+        font-weight: 900 !important;
+    }
+
+
+    h2 {
+        color: #123f82 !important;
+        font-weight: 850 !important;
+    }
+
+
+    h3 {
+        color: #075985 !important;
+        font-weight: 800 !important;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+       ===================================================== */
+
+    section[data-testid="stSidebar"] {
+
+        background:
+            linear-gradient(
+                180deg,
+                #eaf3ff 0%,
+                #eff8ff 50%,
+                #ecfeff 100%
+            );
+
+        border-right:
+            2px solid rgba(37,99,235,0.15);
+
+        box-shadow:
+            8px 0 30px rgba(15,23,42,0.05);
+    }
+
+
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+
+        color: #0f3d91 !important;
+        font-weight: 850 !important;
+    }
+
+
+    section[data-testid="stSidebar"] label {
+
+        font-weight: 700 !important;
+        color: #164e63 !important;
+    }
+
+
+    /* =====================================================
+       SIDEBAR CARD
+       ===================================================== */
+
+    .sidebar-card {
+
+        padding: 18px;
+
+        margin-bottom: 18px;
+
+        border-radius: 18px;
+
+        background:
+            rgba(255,255,255,0.72);
+
+        border:
+            1px solid rgba(37,99,235,0.12);
+
+        box-shadow:
+            0 8px 25px rgba(15,23,42,0.06);
+
+        backdrop-filter: blur(10px);
+    }
+
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+
+    .stButton > button {
+
+        min-height: 46px;
+
+        border-radius: 13px;
+
+        border:
+            1px solid #2563eb;
+
+        background:
+            linear-gradient(
+                90deg,
+                #2563eb,
+                #0891b2
+            );
 
         color: white;
 
         font-weight: 800;
 
-        font-size: 15px;
+        box-shadow:
+            0 8px 20px rgba(37,99,235,0.18);
+
+        transition:
+            all 0.2s ease;
+    }
+
+
+    .stButton > button:hover {
+
+        transform:
+            translateY(-3px)
+            scale(1.01);
+
+        box-shadow:
+            0 12px 28px rgba(37,99,235,0.30);
+
+        color: white;
+    }
+
+
+    /* =====================================================
+       FILE UPLOADER
+       ===================================================== */
+
+    section[data-testid="stFileUploaderDropzone"] {
+
+        border-radius: 18px;
+
+        border:
+            2px dashed #60a5fa;
+
+        background:
+            rgba(239,246,255,0.8);
+
+        transition:
+            all 0.2s ease;
+    }
+
+
+    section[data-testid="stFileUploaderDropzone"]:hover {
+
+        border-color: #2563eb;
+
+        background:
+            rgba(219,234,254,0.9);
+
+        transform:
+            translateY(-2px);
+    }
+
+
+    /* =====================================================
+       TEXT AREA
+       ===================================================== */
+
+    textarea {
+
+        border-radius: 14px !important;
+
+        border:
+            1px solid #bfdbfe !important;
+
+        background:
+            rgba(255,255,255,0.9) !important;
+    }
+
+
+    /* =====================================================
+       SELECT BOX
+       ===================================================== */
+
+    div[data-baseweb="select"] > div {
+
+        border-radius: 13px;
+
+        border-color: #bfdbfe;
+    }
+
+
+    /* =====================================================
+       METRIC CARDS
+       ===================================================== */
+
+    div[data-testid="stMetric"] {
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,0.96),
+                rgba(239,246,255,0.94)
+            );
+
+        border:
+            1px solid #bfdbfe;
+
+        border-radius: 20px;
+
+        padding: 20px;
+
+        box-shadow:
+            0 10px 28px rgba(15,23,42,0.07);
+
+        transition:
+            all 0.25s ease;
+    }
+
+
+    div[data-testid="stMetric"]:hover {
+
+        transform:
+            translateY(-5px);
+
+        box-shadow:
+            0 15px 35px rgba(37,99,235,0.16);
+
+        border-color:
+            #60a5fa;
+    }
+
+
+    div[data-testid="stMetricLabel"] {
+
+        color: #64748b;
+
+        font-weight: 700;
+    }
+
+
+    div[data-testid="stMetricValue"] {
+
+        color: #1558c0;
+
+        font-weight: 900;
+    }
+
+
+    /* =====================================================
+       LARGE DASHBOARD TABS
+       ===================================================== */
+
+    button[data-baseweb="tab"] {
+
+        font-size: 17px !important;
+
+        font-weight: 850 !important;
+
+        padding:
+            15px 18px !important;
+
+        color:
+            #475569 !important;
+
+        transition:
+            all 0.2s ease !important;
+    }
+
+
+    button[data-baseweb="tab"]:hover {
+
+        color:
+            #2563eb !important;
+
+        transform:
+            translateY(-2px);
+    }
+
+
+    button[data-baseweb="tab"][aria-selected="true"] {
+
+        color:
+            #0759d4 !important;
+
+        font-weight:
+            900 !important;
+    }
+
+
+    /* =====================================================
+       TAB AREA
+       ===================================================== */
+
+    div[data-baseweb="tab-list"] {
+
+        gap: 10px;
+
+        padding:
+            8px 10px;
+
+        border-radius:
+            18px;
+
+        background:
+            rgba(255,255,255,0.75);
+
+        border:
+            1px solid #dbeafe;
+
+        box-shadow:
+            0 8px 25px rgba(15,23,42,0.05);
+    }
+
+
+    /* =====================================================
+       DATAFRAME
+       ===================================================== */
+
+    div[data-testid="stDataFrame"] {
+
+        border-radius: 16px;
+
+        overflow: hidden;
+
+        border:
+            1px solid #dbeafe;
+
+        box-shadow:
+            0 8px 25px rgba(15,23,42,0.05);
+    }
+
+
+    /* =====================================================
+       ALERTS
+       ===================================================== */
+
+    div[data-testid="stAlert"] {
+
+        border-radius: 15px;
+    }
+
+
+    /* =====================================================
+       DIVIDERS
+       ===================================================== */
+
+    hr {
+
+        border-color:
+            #bfdbfe;
+    }
+
+
+    /* =====================================================
+       SECTION TITLE
+       ===================================================== */
+
+    .section-title {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 20px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .section-icon {
+
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 12px;
 
         background:
             linear-gradient(
                 135deg,
                 #2563eb,
-                #0891b2
+                #06b6d4
             );
 
+        color: white;
+
+        font-size: 20px;
+
         box-shadow:
-            0 5px 18px rgba(37,99,235,0.25);
-
-        animation:
-            aaFloat 3s ease-in-out infinite;
+            0 7px 18px rgba(37,99,235,0.22);
     }
 
 
-    .aa1 {
-        left: 10%;
-        top: 135px;
-    }
+    .section-name {
 
-    .aa2 {
-        left: 21%;
-        top: 168px;
-        animation-delay: .3s;
-    }
+        font-size: 25px;
 
-    .aa3 {
-        left: 32%;
-        top: 132px;
-        animation-delay: .6s;
-    }
+        font-weight: 900;
 
-    .aa4 {
-        left: 43%;
-        top: 168px;
-        animation-delay: .9s;
-    }
-
-    .aa5 {
-        left: 54%;
-        top: 132px;
-        animation-delay: 1.2s;
-    }
-
-    .aa6 {
-        left: 65%;
-        top: 168px;
-        animation-delay: 1.5s;
-    }
-
-    .aa7 {
-        left: 76%;
-        top: 132px;
-        animation-delay: 1.8s;
-    }
-
-    .aa8 {
-        left: 87%;
-        top: 168px;
-        animation-delay: 2.1s;
+        color: #123f82;
     }
 
 
-    @keyframes aaFloat {
+    /* =====================================================
+       STEP BADGE
+       ===================================================== */
 
-        0%, 100% {
-            transform:
-                translateY(0px)
-                scale(1);
-        }
+    .step {
 
-        50% {
-            transform:
-                translateY(-12px)
-                scale(1.08);
-        }
+        display: inline-flex;
 
+        align-items: center;
+
+        gap: 8px;
+
+        padding:
+            8px 14px;
+
+        border-radius: 999px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #dbeafe,
+                #cffafe
+            );
+
+        color:
+            #075985;
+
+        font-size:
+            13px;
+
+        font-weight:
+            900;
+
+        margin-bottom:
+            10px;
     }
 
 
-    /* ---------- FLOATING PARTICLES ---------- */
+    /* =====================================================
+       INFO CARD
+       ===================================================== */
 
-    .particle {
-        position: absolute;
+    .info-card {
 
-        width: 5px;
-        height: 5px;
+        padding:
+            22px;
 
-        border-radius: 50%;
+        border-radius:
+            20px;
 
-        background: #38bdf8;
+        background:
+            rgba(255,255,255,0.86);
 
-        opacity: 0.5;
+        border:
+            1px solid #dbeafe;
 
-        animation:
-            particleFloat 7s linear infinite;
+        box-shadow:
+            0 10px 30px rgba(15,23,42,0.06);
+
+        transition:
+            all 0.25s ease;
     }
 
 
-    .p1 {
-        left: 12%;
-        top: 45%;
-    }
+    .info-card:hover {
 
-    .p2 {
-        left: 35%;
-        top: 75%;
-        animation-delay: 2s;
-    }
+        transform:
+            translateY(-3px);
 
-    .p3 {
-        left: 58%;
-        top: 35%;
-        animation-delay: 4s;
-    }
-
-    .p4 {
-        left: 82%;
-        top: 65%;
-        animation-delay: 1s;
+        box-shadow:
+            0 15px 35px rgba(37,99,235,0.12);
     }
 
 
-    @keyframes particleFloat {
+    /* =====================================================
+       FOOTER
+       ===================================================== */
 
-        0% {
-            transform:
-                translate(0, 0);
-
-            opacity: 0;
-        }
-
-        30% {
-            opacity: 0.6;
-        }
-
-        70% {
-            opacity: 0.6;
-        }
-
-        100% {
-            transform:
-                translate(60px, -40px);
-
-            opacity: 0;
-        }
-
-    }
-
-
-    /* ---------- SMALL LABEL ---------- */
-
-    .hero-label {
-        position: absolute;
-
-        bottom: 18px;
-
-        left: 0;
-        right: 0;
+    .footer {
 
         text-align: center;
 
-        color: #0f766e;
+        padding:
+            20px;
 
-        font-size: 12px;
+        color:
+            #64748b;
 
-        font-weight: 700;
-
-        letter-spacing: 1.5px;
+        font-size:
+            13px;
     }
 
     </style>
 
 
+    <!-- Animated amino-acid particles -->
+
+    <div class="amino-background">
+
+        <div class="amino a1">M</div>
+        <div class="amino a2">K</div>
+        <div class="amino a3">A</div>
+        <div class="amino a4">G</div>
+        <div class="amino a5">F</div>
+        <div class="amino a6">Y</div>
+        <div class="amino a7">L</div>
+
+    </div>
+
+    """,
+    unsafe_allow_html=True
+)
+
+
+# =========================================================
+# HERO HEADER
+# =========================================================
+
+st.markdown(
+    """
     <div class="hero">
 
-        <div class="hero-title">
-            🧬 Protein Profiler
-        </div>
+        <div class="hero-content">
 
-        <div class="hero-subtitle">
-            Interactive Protein Sequence Profiling & Region Mapping
-        </div>
+            <div class="hero-badge">
+                🧬 BIOINFORMATICS • PROTEIN ANALYSIS
+            </div>
 
+            <div class="hero-title">
+                Protein Profiler
+            </div>
 
-        <div class="protein-chain"></div>
+            <div class="hero-subtitle">
+                Interactive Protein Sequence Profiling &
+                Region Mapping Platform
+            </div>
 
+            <div style="
+                font-size:14px;
+                opacity:0.88;
+                max-width:850px;
+            ">
+                Explore amino-acid composition, molecular
+                properties, hydropathy, motifs and
+                biologically relevant protein regions
+                through interactive visualizations.
+            </div>
 
-        <div class="aa aa1">M</div>
-        <div class="aa aa2">V</div>
-        <div class="aa aa3">L</div>
-        <div class="aa aa4">S</div>
-        <div class="aa aa5">P</div>
-        <div class="aa aa6">A</div>
-        <div class="aa aa7">D</div>
-        <div class="aa aa8">K</div>
-
-
-        <div class="particle p1"></div>
-        <div class="particle p2"></div>
-        <div class="particle p3"></div>
-        <div class="particle p4"></div>
-
-
-        <div class="hero-label">
-            SEQUENCE ANALYSIS • PROTEIN PROPERTIES • MOTIFS • REGION MAPPING
         </div>
 
     </div>
     """,
-    height=320,
-    scrolling=False
+    unsafe_allow_html=True
 )
 
 
@@ -620,16 +872,37 @@ components.html(
 # INTRODUCTION
 # =========================================================
 
-with st.container(border=True):
+st.markdown(
+    """
+    <div class="info-card">
 
-    st.subheader("🔬 Protein Sequence Analysis Platform")
+        <div style="
+            font-size:22px;
+            font-weight:900;
+            color:#123f82;
+            margin-bottom:8px;
+        ">
+            🔬 Protein Sequence Analysis Platform
+        </div>
 
-    st.write(
-        "Analyze protein sequences to explore sequence properties, "
-        "amino-acid composition, hydropathy, motifs, and "
-        "biologically relevant regions through interactive "
-        "visualizations."
-    )
+        <div style="
+            color:#475569;
+            font-size:15px;
+            line-height:1.7;
+        ">
+            Analyze protein sequences and discover their
+            composition, physicochemical properties,
+            hydrophobic regions, low-complexity regions,
+            motifs and sequence patterns.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+st.write("")
 
 
 # =========================================================
@@ -640,7 +913,7 @@ SAMPLE = """>sp|P69905|HBA_HUMAN Hemoglobin subunit alpha
 MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHG
 KKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFKLLSHCLLVTLAAHLPAEFTP
 AVHASLDKFLASVSTVLTSKYR
->sp|P04637|P53_HUMAN (fragment) Cellular tumor antigen p53
+>sp|P04637|P53_HUMAN Cellular tumor antigen p53
 MEEPQSDPSVEPPLSQETFSDLWKLLPENNVLSPLPSQAMDDLMLSPDDIEQWFTEDPGP
 DEAPRMPEAAPPVAPAPAAPTPAAPAPAPSWPLSSSVPSQKTYQGSYGFRLGFLHSGTAK
 SVTCTYSPALNKMFCQLAKTCPVQLWVDSTPPPGTRVRAMAIYKQSQHMTEVVRRCPHHE
@@ -652,13 +925,29 @@ GSRAHSSHLKSKKGQSTSRHKKLMFKTEGPDSD
 
 
 # =========================================================
-# STEP 1 — INPUT
+# STEP 1
 # =========================================================
 
-st.subheader("STEP 1 — 📄 Input Protein Sequence")
+st.markdown(
+    """
+    <div class="section-title">
+
+        <div class="section-icon">
+            📄
+        </div>
+
+        <div class="section-name">
+            STEP 1 — Input Protein Sequence
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 st.caption(
-    "Upload a FASTA file or paste a protein sequence below."
+    "Upload a FASTA file or paste your protein sequence."
 )
 
 
@@ -670,7 +959,7 @@ input_col1, input_col2 = st.columns(
 
 with input_col1:
 
-    st.markdown("**📂 FASTA File**")
+    st.markdown("### 📂 FASTA File")
 
     up = st.file_uploader(
         "Upload protein FASTA",
@@ -680,24 +969,27 @@ with input_col1:
             "faa",
             "txt"
         ],
-        help="Supported formats: FASTA, FA, FAA and TXT",
+        help="Supported: FASTA, FA, FAA and TXT",
         label_visibility="collapsed"
     )
 
 
 with input_col2:
 
-    st.markdown("**📝 FASTA Sequence**")
+    st.markdown("### 📝 Paste FASTA")
 
     pasted = st.text_area(
         "Paste protein FASTA",
-        height=130,
+        height=140,
         placeholder=(
             ">Protein_1\n"
             "MVLSPADKTNVKAAWGKV..."
         ),
         label_visibility="collapsed"
     )
+
+
+st.write("")
 
 
 sample_col1, sample_col2, sample_col3 = st.columns(
@@ -719,12 +1011,40 @@ with sample_col2:
 
 with st.sidebar:
 
-    st.header("⚙️ Analysis Settings")
+    st.markdown(
+        """
+        <div style="
+            text-align:center;
+            padding:10px 0 20px 0;
+        ">
 
-    st.caption(
-        "Adjust parameters used for hydropathy "
-        "and protein-region detection."
+            <div style="
+                font-size:38px;
+            ">
+                🧬
+            </div>
+
+            <div style="
+                font-size:23px;
+                font-weight:900;
+                color:#0f3d91;
+            ">
+                Analysis Settings
+            </div>
+
+            <div style="
+                color:#64748b;
+                font-size:13px;
+                margin-top:5px;
+            ">
+                Tune your protein analysis
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
+
 
     st.divider()
 
@@ -733,7 +1053,31 @@ with st.sidebar:
     # HYDROPATHY
     # -----------------------------------------------------
 
-    st.subheader("🌊 Hydropathy")
+    st.markdown(
+        """
+        <div class="sidebar-card">
+
+            <div style="
+                font-size:19px;
+                font-weight:900;
+                color:#075985;
+            ">
+                🌊 Hydropathy
+            </div>
+
+            <div style="
+                font-size:12px;
+                color:#64748b;
+                margin-top:4px;
+            ">
+                Analyze hydrophobic behaviour
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     kd_window = st.slider(
         "Hydropathy window",
@@ -741,10 +1085,7 @@ with st.sidebar:
         max_value=25,
         value=9,
         step=2,
-        help=(
-            "Window size used for "
-            "Kyte-Doolittle hydropathy."
-        )
+        help="Window size for Kyte-Doolittle hydropathy."
     )
 
 
@@ -754,10 +1095,7 @@ with st.sidebar:
         max_value=2.5,
         value=1.6,
         step=0.1,
-        help=(
-            "Threshold used to identify "
-            "hydrophobic / TM-like regions."
-        )
+        help="Threshold for hydrophobic/TM-like regions."
     )
 
 
@@ -768,7 +1106,31 @@ with st.sidebar:
     # COMPLEXITY
     # -----------------------------------------------------
 
-    st.subheader("🧩 Complexity")
+    st.markdown(
+        """
+        <div class="sidebar-card">
+
+            <div style="
+                font-size:19px;
+                font-weight:900;
+                color:#075985;
+            ">
+                🧩 Complexity
+            </div>
+
+            <div style="
+                font-size:12px;
+                color:#64748b;
+                margin-top:4px;
+            ">
+                Detect low-complexity regions
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     lc_cut = st.slider(
         "Low-complexity entropy cutoff",
@@ -776,10 +1138,7 @@ with st.sidebar:
         max_value=3.5,
         value=2.2,
         step=0.1,
-        help=(
-            "Entropy threshold used for "
-            "low-complexity region detection."
-        )
+        help="Entropy threshold for low-complexity detection."
     )
 
 
@@ -787,8 +1146,8 @@ with st.sidebar:
 
 
     st.info(
-        "💡 Changing these thresholds can alter "
-        "the number of detected protein regions."
+        "💡 Adjusting these values changes the "
+        "detected protein regions."
     )
 
 
@@ -817,14 +1176,43 @@ else:
 
 
 # =========================================================
-# START MESSAGE
+# NO INPUT
 # =========================================================
 
 if not text.strip():
 
-    st.info(
-        "🧬 Upload a FASTA file, paste a protein sequence, "
-        "or load the sample dataset to begin analysis."
+    st.markdown(
+        """
+        <div class="info-card" style="
+            text-align:center;
+            margin-top:25px;
+        ">
+
+            <div style="
+                font-size:50px;
+            ">
+                🧬
+            </div>
+
+            <div style="
+                font-size:22px;
+                font-weight:900;
+                color:#123f82;
+            ">
+                Ready for Protein Analysis
+            </div>
+
+            <div style="
+                color:#64748b;
+                margin-top:8px;
+            ">
+                Upload a FASTA file, paste a sequence,
+                or load the sample dataset.
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     st.stop()
@@ -870,19 +1258,30 @@ st.success(
 
 
 # =========================================================
-# STEP 2 — SELECT PROTEIN
+# STEP 2
 # =========================================================
 
-st.subheader("STEP 2 — 🧬 Select Protein Sequence")
+st.markdown(
+    """
+    <div class="section-title">
+
+        <div class="section-icon">
+            🧬
+        </div>
+
+        <div class="section-name">
+            STEP 2 — Select Protein
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 choice = st.selectbox(
     "Choose a protein for detailed analysis",
-    df.id,
-    help=(
-        "Select one protein sequence from "
-        "the uploaded FASTA file."
-    )
+    df.id
 )
 
 
@@ -929,16 +1328,30 @@ with st.spinner(
 
 
 # =========================================================
-# STEP 3 — DASHBOARD
+# STEP 3
 # =========================================================
 
-st.subheader(
-    "STEP 3 — 📊 Protein Analysis Dashboard"
+st.markdown(
+    """
+    <div class="section-title">
+
+        <div class="section-icon">
+            📊
+        </div>
+
+        <div class="section-name">
+            STEP 3 — Protein Analysis Dashboard
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
+
 st.caption(
-    "Explore protein properties, molecular fingerprint, "
-    "detected regions, motifs and interactive graphs."
+    "Explore protein properties, amino-acid fingerprint, "
+    "regions, motifs and interactive graphs."
 )
 
 
@@ -948,11 +1361,11 @@ st.caption(
 
 t1, t2, t3, t4, t5 = st.tabs(
     [
-        "📋 Overview",
-        "🔬 Fingerprint",
-        "🗺️ Protein Map",
-        "📑 Regions & Motifs",
-        "📈 Graphs"
+        "📋  OVERVIEW",
+        "🧬  FINGERPRINT",
+        "🗺️  PROTEIN MAP",
+        "🎯  REGIONS & MOTIFS",
+        "📈  GRAPHS"
     ]
 )
 
@@ -975,9 +1388,8 @@ with t1:
         )
 
 
-    # -----------------------------------------------------
-    # METRICS
-    # -----------------------------------------------------
+    st.write("")
+
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -1014,15 +1426,24 @@ with t1:
         )
 
 
-    st.divider()
+    st.write("")
 
-
-    # -----------------------------------------------------
-    # PROTEIN PROPERTIES
-    # -----------------------------------------------------
 
     st.markdown(
-        "### 🔎 Protein Properties"
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                🔎
+            </div>
+
+            <div class="section-name">
+                Protein Properties
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
@@ -1042,14 +1463,23 @@ with t1:
     )
 
 
-    # -----------------------------------------------------
-    # ALL SEQUENCES
-    # -----------------------------------------------------
-
     if len(df) > 1:
 
         st.markdown(
-            "### 📊 Sequences in Input File"
+            """
+            <div class="section-title">
+
+                <div class="section-icon">
+                    📊
+                </div>
+
+                <div class="section-name">
+                    Sequences in Input
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
 
@@ -1068,8 +1498,21 @@ with t1:
 
 with t2:
 
-    st.subheader(
-        "🧬 Amino-acid Fingerprint"
+    st.markdown(
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                🧬
+            </div>
+
+            <div class="section-name">
+                Amino-acid Fingerprint
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
@@ -1106,17 +1549,26 @@ with t2:
 
                 fill="toself",
 
-                name="Composition"
+                name="Composition",
+
+                line=dict(
+                    color="#2563eb",
+                    width=3
+                ),
+
+                fillcolor="rgba(37,99,235,0.25)"
             )
         )
 
 
         radar.update_layout(
+
             title="Amino-acid Composition (%)",
 
-            height=420,
+            height=440,
 
             polar=dict(
+
                 radialaxis=dict(
                     visible=True
                 )
@@ -1178,7 +1630,20 @@ with t2:
     # -----------------------------------------------------
 
     st.markdown(
-        "### 🧩 Positional Fingerprint"
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                🧩
+            </div>
+
+            <div class="section-name">
+                Positional Fingerprint
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
@@ -1228,9 +1693,14 @@ with t2:
 
         aspect="auto",
 
-        color_continuous_scale="Viridis",
+        color_continuous_scale="Blues",
 
         title="Residue Frequency Along the Sequence"
+    )
+
+
+    hm.update_layout(
+        height=500
     )
 
 
@@ -1246,15 +1716,28 @@ with t2:
 
 with t3:
 
-    st.subheader(
-        "🗺️ Interactive Protein Region Map"
+    st.markdown(
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                🗺️
+            </div>
+
+            <div class="section-name">
+                Interactive Protein Region Map
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
     COL = {
         "Hydrophobic / TM-like": "#f97316",
         "Low complexity": "#8b5cf6",
-        "Charged-rich": "#0ea5e9"
+        "Charged-rich": "#06b6d4"
     }
 
 
@@ -1264,6 +1747,7 @@ with t3:
 
 
     fig = make_subplots(
+
         rows=2,
         cols=1,
 
@@ -1274,7 +1758,7 @@ with t3:
             0.45
         ],
 
-        vertical_spacing=0.04
+        vertical_spacing=0.05
     )
 
 
@@ -1283,6 +1767,7 @@ with t3:
     # -----------------------------------------------------
 
     fig.add_shape(
+
         type="rect",
 
         x0=1,
@@ -1293,7 +1778,7 @@ with t3:
 
         y1=0.05,
 
-        fillcolor="#cbd5e1",
+        fillcolor="#bfdbfe",
 
         line_width=0,
 
@@ -1346,12 +1831,15 @@ with t3:
                 line=dict(
                     color=COL[
                         r.region
-                    ]
+                    ],
+                    width=2
                 ),
 
-                name=r.region,
+                fillcolor=COL[
+                    r.region
+                ],
 
-                legendgroup=r.region,
+                name=r.region,
 
                 showlegend=False,
 
@@ -1392,7 +1880,7 @@ with t3:
                 mode="markers",
 
                 marker=dict(
-                    size=11,
+                    size=13,
                     symbol="diamond",
                     color="#e11d48"
                 ),
@@ -1480,6 +1968,7 @@ with t3:
 
 
     fig.update_xaxes(
+
         title_text="Residue Position",
 
         row=2,
@@ -1489,6 +1978,7 @@ with t3:
 
 
     fig.update_yaxes(
+
         title_text="Hydropathy",
 
         row=2,
@@ -1499,11 +1989,21 @@ with t3:
 
     fig.update_layout(
 
-        height=620,
+        height=650,
 
         showlegend=False,
 
-        title=f"Interactive Protein Map — {row.id}",
+        title=dict(
+            text=f"Protein Map — {row.id}",
+            font=dict(
+                size=22,
+                color="#123f82"
+            )
+        ),
+
+        plot_bgcolor="rgba(255,255,255,0.75)",
+
+        paper_bgcolor="rgba(0,0,0,0)",
 
         margin=dict(
             l=30,
@@ -1520,7 +2020,7 @@ with t3:
     )
 
 
-    st.caption(
+    st.info(
         "💡 Hover over regions for details • "
         "Drag to zoom • Double-click to reset"
     )
@@ -1532,8 +2032,26 @@ with t3:
 
 with t4:
 
-    st.subheader(
-        "🧩 Detected Protein Regions"
+    st.markdown(
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                🎯
+            </div>
+
+            <div class="section-name">
+                Detected Regions & Motifs
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+    st.markdown(
+        "### 🧩 Protein Regions"
     )
 
 
@@ -1554,8 +2072,11 @@ with t4:
         )
 
 
-    st.subheader(
-        "🎯 Detected Motifs"
+    st.write("")
+
+
+    st.markdown(
+        "### 🎯 Sequence Motifs"
     )
 
 
@@ -1582,12 +2103,30 @@ with t4:
 
 with t5:
 
-    st.subheader(
-        "📊 Amino-acid Composition"
+    st.markdown(
+        """
+        <div class="section-title">
+
+            <div class="section-icon">
+                📈
+            </div>
+
+            <div class="section-name">
+                Interactive Graphs
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
+    # -----------------------------------------------------
+    # AMINO ACID BAR
+    # -----------------------------------------------------
+
     bar = px.bar(
+
         comp,
 
         x="aa",
@@ -1598,15 +2137,22 @@ with t5:
 
         color="percent",
 
-        color_continuous_scale="Tealgrn"
+        color_continuous_scale="Blues"
     )
 
 
     bar.update_layout(
+
+        height=450,
+
+        plot_bgcolor="rgba(255,255,255,0.75)",
+
+        paper_bgcolor="rgba(0,0,0,0)",
+
         margin=dict(
             l=30,
             r=30,
-            t=60,
+            t=70,
             b=40
         )
     )
@@ -1618,12 +2164,17 @@ with t5:
     )
 
 
-    st.subheader(
-        "🌊 Hydropathy Profile"
+    # -----------------------------------------------------
+    # HYDROPATHY
+    # -----------------------------------------------------
+
+    st.markdown(
+        "### 🌊 Hydropathy Profile"
     )
 
 
     line = px.line(
+
         hydro,
 
         x="position",
@@ -1631,17 +2182,31 @@ with t5:
         y="kd",
 
         title=(
-            f"Hydropathy Profile — "
-            f"Window {kd_window}"
+            f"Kyte-Doolittle Hydropathy "
+            f"Profile — Window {kd_window}"
+        )
+    )
+
+
+    line.update_traces(
+        line=dict(
+            width=3
         )
     )
 
 
     line.update_layout(
+
+        height=430,
+
+        plot_bgcolor="rgba(255,255,255,0.75)",
+
+        paper_bgcolor="rgba(0,0,0,0)",
+
         margin=dict(
             l=30,
             r=30,
-            t=60,
+            t=70,
             b=40
         )
     )
@@ -1659,8 +2224,21 @@ with t5:
 
     if len(df) > 1:
 
-        st.subheader(
-            "🔬 Multi-sequence Comparison"
+        st.markdown(
+            """
+            <div class="section-title">
+
+                <div class="section-icon">
+                    🔬
+                </div>
+
+                <div class="section-name">
+                    Multi-sequence Comparison
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
 
@@ -1715,9 +2293,18 @@ with t5:
             hover_name="id",
 
             title=(
-                "Multi-sequence Comparison "
+                "Protein Comparison "
                 "(Bubble Size = Molecular Weight)"
             )
+        )
+
+
+        scatter.update_layout(
+            height=480,
+
+            plot_bgcolor="rgba(255,255,255,0.75)",
+
+            paper_bgcolor="rgba(0,0,0,0)"
         )
 
 
@@ -1733,8 +2320,30 @@ with t5:
 
 st.divider()
 
-st.caption(
-    "🧬 Protein Profiler  •  "
-    "Sequence Analysis  •  Protein Properties  •  "
-    "Hydropathy  •  Motifs  •  Region Mapping"
+
+st.markdown(
+    """
+    <div class="footer">
+
+        🧬 <b>Protein Profiler</b>
+        &nbsp;•&nbsp;
+        Sequence Analysis
+        &nbsp;•&nbsp;
+        Amino-acid Composition
+        &nbsp;•&nbsp;
+        Hydropathy
+        &nbsp;•&nbsp;
+        Motif Detection
+        &nbsp;•&nbsp;
+        Region Mapping
+
+        <br><br>
+
+        <span style="color:#2563eb;">
+            Bioinformatics Project
+        </span>
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
