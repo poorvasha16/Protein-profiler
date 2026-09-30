@@ -254,16 +254,366 @@ st.markdown(
 
 
 # =========================================================
-# HEADER
+# PROFESSIONAL ANIMATED HEADER
 # =========================================================
 
-st.title("🧬 Protein Profiler")
+import streamlit.components.v1 as components
 
-st.caption(
-    "Interactive Protein Sequence Profiling & Region Mapping"
+components.html(
+    """
+    <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: transparent;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+
+        border-radius: 28px;
+
+        background:
+            radial-gradient(
+                circle at 15% 30%,
+                rgba(59,130,246,0.18),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 85% 70%,
+                rgba(6,182,212,0.18),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #f8fbff,
+                #eff6ff,
+                #ecfeff
+            );
+
+        border: 1px solid rgba(147,197,253,0.55);
+
+        box-shadow:
+            0 12px 35px rgba(30,64,175,0.10);
+    }
+
+
+    /* ---------- HEADER TEXT ---------- */
+
+    .hero-title {
+        position: absolute;
+
+        top: 28px;
+        left: 0;
+        right: 0;
+
+        text-align: center;
+
+        font-size: 38px;
+        font-weight: 800;
+
+        letter-spacing: -1px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #2563eb,
+                #0891b2,
+                #7c3aed
+            );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+
+    .hero-subtitle {
+        position: absolute;
+
+        top: 80px;
+        left: 0;
+        right: 0;
+
+        text-align: center;
+
+        color: #64748b;
+
+        font-size: 15px;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    /* ---------- PROTEIN CHAIN ---------- */
+
+    .protein-chain {
+        position: absolute;
+
+        left: 6%;
+        right: 6%;
+
+        top: 155px;
+
+        height: 3px;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                #60a5fa,
+                #06b6d4,
+                #60a5fa,
+                transparent
+            );
+
+        box-shadow:
+            0 0 12px rgba(6,182,212,0.35);
+    }
+
+
+    /* ---------- AMINO ACIDS ---------- */
+
+    .aa {
+        position: absolute;
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        color: white;
+
+        font-weight: 800;
+
+        font-size: 15px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #0891b2
+            );
+
+        box-shadow:
+            0 5px 18px rgba(37,99,235,0.25);
+
+        animation:
+            aaFloat 3s ease-in-out infinite;
+    }
+
+
+    .aa1 {
+        left: 10%;
+        top: 135px;
+    }
+
+    .aa2 {
+        left: 21%;
+        top: 168px;
+        animation-delay: .3s;
+    }
+
+    .aa3 {
+        left: 32%;
+        top: 132px;
+        animation-delay: .6s;
+    }
+
+    .aa4 {
+        left: 43%;
+        top: 168px;
+        animation-delay: .9s;
+    }
+
+    .aa5 {
+        left: 54%;
+        top: 132px;
+        animation-delay: 1.2s;
+    }
+
+    .aa6 {
+        left: 65%;
+        top: 168px;
+        animation-delay: 1.5s;
+    }
+
+    .aa7 {
+        left: 76%;
+        top: 132px;
+        animation-delay: 1.8s;
+    }
+
+    .aa8 {
+        left: 87%;
+        top: 168px;
+        animation-delay: 2.1s;
+    }
+
+
+    @keyframes aaFloat {
+
+        0%, 100% {
+            transform:
+                translateY(0px)
+                scale(1);
+        }
+
+        50% {
+            transform:
+                translateY(-12px)
+                scale(1.08);
+        }
+
+    }
+
+
+    /* ---------- FLOATING PARTICLES ---------- */
+
+    .particle {
+        position: absolute;
+
+        width: 5px;
+        height: 5px;
+
+        border-radius: 50%;
+
+        background: #38bdf8;
+
+        opacity: 0.5;
+
+        animation:
+            particleFloat 7s linear infinite;
+    }
+
+
+    .p1 {
+        left: 12%;
+        top: 45%;
+    }
+
+    .p2 {
+        left: 35%;
+        top: 75%;
+        animation-delay: 2s;
+    }
+
+    .p3 {
+        left: 58%;
+        top: 35%;
+        animation-delay: 4s;
+    }
+
+    .p4 {
+        left: 82%;
+        top: 65%;
+        animation-delay: 1s;
+    }
+
+
+    @keyframes particleFloat {
+
+        0% {
+            transform:
+                translate(0, 0);
+
+            opacity: 0;
+        }
+
+        30% {
+            opacity: 0.6;
+        }
+
+        70% {
+            opacity: 0.6;
+        }
+
+        100% {
+            transform:
+                translate(60px, -40px);
+
+            opacity: 0;
+        }
+
+    }
+
+
+    /* ---------- SMALL LABEL ---------- */
+
+    .hero-label {
+        position: absolute;
+
+        bottom: 18px;
+
+        left: 0;
+        right: 0;
+
+        text-align: center;
+
+        color: #0f766e;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        letter-spacing: 1.5px;
+    }
+
+    </style>
+
+
+    <div class="hero">
+
+        <div class="hero-title">
+            🧬 Protein Profiler
+        </div>
+
+        <div class="hero-subtitle">
+            Interactive Protein Sequence Profiling & Region Mapping
+        </div>
+
+
+        <div class="protein-chain"></div>
+
+
+        <div class="aa aa1">M</div>
+        <div class="aa aa2">V</div>
+        <div class="aa aa3">L</div>
+        <div class="aa aa4">S</div>
+        <div class="aa aa5">P</div>
+        <div class="aa aa6">A</div>
+        <div class="aa aa7">D</div>
+        <div class="aa aa8">K</div>
+
+
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+
+
+        <div class="hero-label">
+            SEQUENCE ANALYSIS • PROTEIN PROPERTIES • MOTIFS • REGION MAPPING
+        </div>
+
+    </div>
+    """,
+    height=320,
+    scrolling=False
 )
-
-st.divider()
 
 
 # =========================================================
